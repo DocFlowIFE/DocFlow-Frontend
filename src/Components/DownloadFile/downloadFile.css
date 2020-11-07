@@ -1,0 +1,10 @@
+.download {
+    opacity: 0.7;
+    transition: transform .2s;
+}
+  
+.download:hover {
+    transform: scale(1.12);
+    opacity: 1;
+    cursor: pointer;
+}

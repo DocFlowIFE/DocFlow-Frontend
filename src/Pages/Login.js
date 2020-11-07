@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 function Login() {
     return (
-        <div class="container mb-5 mt-5">
+        <div className="container mb-5 mt-5">
             <div className="row">
                 <div className="col-md-8 col-lg-6 m-auto">
                     <div className="jumbotron">

@@ -15,6 +15,10 @@ a:hover {
   text-decoration: none;
 }
 
+.font-small {
+  font-size: 0.8rem;
+}
+
 .jumbotron {
   background-color: white;
   border-radius: 0;
@@ -23,6 +27,14 @@ a:hover {
 
 .text-main {
   color: #495867;
+}
+
+.text-board {
+  color: #BDD5EA;
+}
+
+.text-hot {
+  color: #F6B6EB;
 }
 
 .btn-main {
@@ -34,6 +46,15 @@ a:hover {
 .btn-main:hover, .btn-main:active, .btn-main:focus {
   background-color: #9ec6eb;
   color: #222;
+  font-weight: bold;
+}
+
+.btn-no {
+  color: #FE5F55;
+}
+
+.btn-no:hover {
+  cursor: pointer;
   font-weight: bold;
 }
 
