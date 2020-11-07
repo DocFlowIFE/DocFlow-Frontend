@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { AiOutlineCloudDownload } from 'react-icons/ai';
-import './downloadFile.css'
+import './downloadFile.css';
 
 function DownloadFile(props) {
     const [fileId, setFileId] = useState(props.fileId);

@@ -1,45 +1,65 @@
-import React from "react";
-import { Jumbotron } from "react-bootstrap";
-import ListGroup from 'react-bootstrap/ListGroup';
-import Alert from 'react-bootstrap/Alert';
-import UploadFile from "../Components/UploadFile/UploadFile";
-import DownloadFile from "../Components/DownloadFile/downloadFile";
+import React, { useState } from "react";
+import Ticket from "../Components/Ticket/Ticket";
 
 function Feed() {
-    let sendFile = (event, file) => {
-        event.preventDefault();
-        console.log(file);
-    }
+    let [documents, setDocuments] = useState(
+        [
+            {
+                title: "Example document",
+                date: "15.10.2020",
+                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris non pharetra augue. Aenean nec ipsum vulputate libero condimentum eleifend ac ut lacus. Etiam gravida tincidunt fringilla. Donec viverra scelerisque est non laoreet.",
+                status: "Waiting",
+                flow: [
+                    {
+                        name: "You",
+                        current: true
+                    },
+                    {
+                        name: "Dean's office",
+                        current: false
+                    },
+                    {
+                        name: "You",
+                        current: false
+                    }
+                ],
+                baseDocument: {
+                    fileName: "exampleFile.docx",
+                    fileId: 54394324
+                }
+            },
+            {
+                title: "Important document",
+                date: "18.10.2020",
+                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                status: "Pending",
+                flow: [
+                    {
+                        name: "You",
+                        current: false
+                    },
+                    {
+                        name: "Dean's office",
+                        current: true
+                    },
+                    {
+                        name: "You",
+                        current: false
+                    }
+                ],
+                baseDocument: {
+                    fileName: "importantFile.docx",
+                    fileId: 3231141
+                }
+            }
+        ]
+    );
 
     return (
-        <div className="container mb-5">
-            <Jumbotron className="row">
-                <div className="col-md-8">
-                    <h1>Document title</h1>
-                    <ListGroup variant="flush">
-                        <ListGroup.Item>
-                            <span className="font-weight-bold">Date: </span>
-                            15.11.2020
-                        </ListGroup.Item>
-                        <ListGroup.Item>
-                            <span className="font-weight-bold">Description: </span>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris non pharetra augue. Aenean nec ipsum vulputate libero condimentum eleifend ac ut lacus. Etiam gravida tincidunt fringilla. Donec viverra scelerisque est non laoreet.
-                        </ListGroup.Item>
-                        <ListGroup.Item>
-                            <span className="font-weight-bold">Flow: </span>
-                            <b><u className="text-hot">You</u></b> - Dean's office - You
-                        </ListGroup.Item>
-                    </ListGroup>
-                    <Alert variant='secondary' className="mt-4">
-                        Waiting
-                    </Alert>
-                </div>
-                <div className="col-md-4 d-flex flex-column justify-content-center">
-                    <DownloadFile fileId="53618383913" fileName="exampleFile.docx" />
-                    <hr />
-                    <UploadFile onFileSend={sendFile} />
-                </div>                
-            </Jumbotron>
+        <div className="container mt-5">
+            {documents.map((document, index) => (
+                <Ticket document={document} key={index} id={index} />
+            ))};
         </div>
     );
 }

@@ -2,7 +2,7 @@ import React from "react";
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Alert from 'react-bootstrap/Alert'
 import { GetRandomFact } from "../Services/AnimalsFactsService";
-import Spinner from "../Components/Spinner/spinner";
+import Spinner from "../Components/Spinner/Spinner";
 
 function AnimalFacts() {
     let fact = GetRandomFact();

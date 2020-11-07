@@ -19,7 +19,7 @@ function Home() {
                         </p>
                     </div>
                 </div>
-                <img className="col-md-6 p-0" src={HomeImage} alt="Documents image"></img>
+                <img className="col-md-6 p-0" src={HomeImage} alt="Documents"></img>
             </div>
         </div>
     );

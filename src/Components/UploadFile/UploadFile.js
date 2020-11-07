@@ -7,11 +7,12 @@ import './uploadFile.css'
 
 function UploadFile(props) {
     const [file, setFile] = useState(null);
+    const fileInputId = props.id + "file-upload";
 
     let fileBox = null;
 
     let clearFileInput = () => {
-        document.getElementById("file-upload").value = null;
+        document.getElementById(fileInputId).value = null;
         setFile(null);
     }
 
@@ -34,21 +35,19 @@ function UploadFile(props) {
     }
 
     return (
-        <div>
-            <Form className="text-center" onSubmit={ e => props.onFileSend(e, file) }>
-                <Form.Label htmlFor="file-upload" className="d-block custom-file-upload">
-                    <AiOutlineCloudUpload className="mr-1" size={50} />
-                    <span className="d-block">Upload File</span>
-                </Form.Label>
-                <Form.Group className="m-0">
-                    <Form.File id="file-upload" onChange={(e) => setFile(e.target.value)} />
-                </Form.Group>
-                {fileBox}
-                <Button className="btn btn-main btn-block mt-4" type="submit">
-                    Send
-                </Button>
-            </Form>
-        </div>
+        <Form className="text-center" onSubmit={ e => props.onFileSend(e, file) }>
+            <Form.Label htmlFor={fileInputId} className="d-block custom-file-upload">
+                <AiOutlineCloudUpload className="mr-1" size={50} />
+                <span className="d-block">Upload File</span>
+            </Form.Label>
+            <Form.Group className="m-0">
+                <Form.File id={fileInputId} onChange={(e) => {setFile(e.target.value)}}/>
+            </Form.Group>
+            {fileBox}
+            <Button className="btn btn-main btn-block mt-4" type="submit">
+                Send
+            </Button>
+        </Form>
     );
 }
 
