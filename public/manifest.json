@@ -1,6 +1,6 @@
 {
-  "short_name": "ReactBaseApp",
-  "name": "Base setup for building react application",
+  "short_name": "DocFlow",
+  "name": "DocFlow",
   "icons": [
     {
       "src": "favicon.ico",

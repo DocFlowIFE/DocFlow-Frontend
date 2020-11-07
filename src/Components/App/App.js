@@ -2,7 +2,9 @@ import "./app.css";
 import NavigationMenu from '../Navigation/NavigationMenu';
 import Footer from '../Footer/Footer';
 import Home from '../../Pages/Home';
-import About from '../../Pages/About';
+import Feed from '../../Pages/Feed';
+import Login from '../../Pages/Login';
+import Register from '../../Pages/Register';
 import AnimalFacts from '../../Pages/AnimalFacts';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -16,11 +18,17 @@ function App() {
               <Route exact path="/">
                   <Home />
               </Route>
-              <Route path="/about">
-                  <About />
-              </Route>
               <Route path="/facts">
                   <AnimalFacts />
+              </Route>
+              <Route path="/feed">
+                  <Feed />
+              </Route>
+              <Route path="/login">
+                  <Login />
+              </Route>
+              <Route path="/register">
+                  <Register />
               </Route>
           </Switch>
         </div>

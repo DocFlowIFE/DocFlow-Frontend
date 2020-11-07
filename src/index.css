@@ -20,3 +20,97 @@ a:hover {
   border-radius: 0;
   margin-bottom: 0;
 }
+
+.text-main {
+  color: #495867;
+}
+
+.btn-main {
+  background-color: #BDD5EA;
+  color: #222;
+  font-weight: bold;
+}
+
+.btn-main:hover, .btn-main:active, .btn-main:focus {
+  background-color: #9ec6eb;
+  color: #222;
+  font-weight: bold;
+}
+
+.btn-yes {
+  background-color: #96E6B3;
+  color: #222;
+  font-weight: bold;
+}
+
+.btn-yes:hover, .btn-yes:active, .btn-yes:focus {
+  background-color: #8DF88B;
+  color: #222;
+  font-weight: bold;
+}
+
+.btn-hot {
+  background-color: #F9CFF2;
+  color: #222;
+  font-weight: bold;
+}
+
+.btn-hot:hover, .btn-hot:active, .btn-hot:focus {
+  background-color: #F6B6EB;
+  color: #222;
+  font-weight: bold;
+}
+
+.btn {
+  border-radius: 0px;
+  border: none;
+}
+
+.btng {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  touch-action: manipulation;
+  user-select: none;
+  cursor: pointer;
+  white-space: nowrap;
+  text-decoration: none;
+  text-align: center;
+  border: 0;
+  transition: all 250ms ease-in-out;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.btng--gradient {
+  transition: all 500ms ease-in-out;
+  font-size: 24px;
+  color: #fff;
+  background: linear-gradient(54.7deg, #577399 20%, #F7F7FF 100%);
+}
+
+.btng--gradient:hover, .btng--gradient:active {
+  color: #fff;
+}
+
+.btng--gradient:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  opacity: 0;
+  transition: all 500ms ease-in-out;
+  background: linear-gradient(54.7deg, #577399 100%, #577399 20%);
+}
+
+.btng--gradient:hover:before {
+  opacity: 1;
+  color: #fff;
+}
+
+.btng_text {
+  z-index: 2;
+  position: relative;
+}
