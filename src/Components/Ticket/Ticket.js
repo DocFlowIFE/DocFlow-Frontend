@@ -16,10 +16,11 @@ function Ticket(props) {
     let getStatusBox = (document) => {
         let variant = null;
         switch(document.status){
-            case 'Waiting': variant = 'secondary'; break;
+            case 'Waiting': variant = 'info'; break;
             case 'Pending': variant = 'warning'; break;
             case 'Rejected': variant = 'danger'; break;
             case 'Accepted': variant = 'success'; break;
+            case 'Closed': variant = 'secondary'; break;
             default: variant = 'secondary';
         }
         return (
@@ -43,6 +44,24 @@ function Ticket(props) {
         return (<div dangerouslySetInnerHTML={{__html: result}}></div>);
     }
 
+    let getUploadFileComponent = (document) => {
+        if(document.status !== 'Pending' && document.status !== 'Closed')
+        {
+            return <UploadFile id={props.id+"_UploadFile"} onFileSend={sendFile} />
+        }
+    }
+
+    let getCommentBox = (document) => {
+        if(document.status === "Rejected" || document.status === "Accepted")
+        {
+            return (
+            <ListGroup.Item>
+                <span className="font-weight-bold">Comment: </span>
+                {document.comment}
+            </ListGroup.Item>);
+        }
+    }
+
     return (
         <Jumbotron className="row mb-5">
             <div className="col-md-8">
@@ -60,13 +79,14 @@ function Ticket(props) {
                         <span className="font-weight-bold">Flow: </span>
                         {getFlowBox(document)}
                     </ListGroup.Item>
+                    {getCommentBox(document)}
                 </ListGroup>
                 {getStatusBox(document)}
             </div>
             <div className="col-md-4 d-flex flex-column justify-content-center">
                 <DownloadFile key={props.id+"_DownloadFile"} fileId={document.baseDocument.fileId} fileName={document.baseDocument.fileName} />
-                <UploadFile id={props.id+"_UploadFile"} onFileSend={sendFile} />
-            </div>                
+                {getUploadFileComponent(document)}
+            </div>
         </Jumbotron>
     );
 }

@@ -8,6 +8,7 @@ function Feed() {
                 title: "Example document",
                 date: "15.10.2020",
                 description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris non pharetra augue. Aenean nec ipsum vulputate libero condimentum eleifend ac ut lacus. Etiam gravida tincidunt fringilla. Donec viverra scelerisque est non laoreet.",
+                comment: "",
                 status: "Waiting",
                 flow: [
                     {
@@ -32,6 +33,7 @@ function Feed() {
                 title: "Important document",
                 date: "18.10.2020",
                 description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                comment: "",
                 status: "Pending",
                 flow: [
                     {
@@ -50,6 +52,31 @@ function Feed() {
                 baseDocument: {
                     fileName: "importantFile.docx",
                     fileId: 3231141
+                }
+            },
+            {
+                title: "Just document",
+                date: "19.10.2020",
+                description: "Lorem ipsum dolor sit amet.",
+                comment: "Something is wrong with document ... ",
+                status: "Rejected",
+                flow: [
+                    {
+                        name: "You",
+                        current: true
+                    },
+                    {
+                        name: "Dean's office",
+                        current: false
+                    },
+                    {
+                        name: "You",
+                        current: false
+                    }
+                ],
+                baseDocument: {
+                    fileName: "justFile.docx",
+                    fileId: 3213119
                 }
             }
         ]

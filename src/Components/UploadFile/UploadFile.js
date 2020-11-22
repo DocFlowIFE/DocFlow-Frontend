@@ -44,7 +44,7 @@ function UploadFile(props) {
                 <Form.File id={fileInputId} onChange={(e) => {setFile(e.target.value)}}/>
             </Form.Group>
             {fileBox}
-            <Button className="btn btn-main btn-block mt-4" type="submit">
+            <Button className="btn btn-main btn-block mt-4" type="submit" disabled={file == null}>
                 Send
             </Button>
         </Form>

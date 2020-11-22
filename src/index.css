@@ -44,8 +44,8 @@ a:hover {
 }
 
 .btn-main:hover, .btn-main:active, .btn-main:focus {
-  background-color: #9ec6eb;
-  color: #222;
+  background-color: #9ec6eb !important;
+  color: #222 !important;
   font-weight: bold;
 }
 
@@ -85,6 +85,12 @@ a:hover {
 .btn {
   border-radius: 0px;
   border: none;
+}
+
+.btn:disabled,
+.btn[disabled]{
+  background-color: #cccccc !important;
+  color: #666666 !important;
 }
 
 .btng {
