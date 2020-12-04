@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Ticket from "../Components/Ticket/Ticket";
 
-function Feed() {
+function TicketsFeed() {
     let [documents, setDocuments] = useState(
         [
             {
@@ -17,10 +17,6 @@ function Feed() {
                     },
                     {
                         name: "Dean's office",
-                        current: false
-                    },
-                    {
-                        name: "You",
                         current: false
                     }
                 ],
@@ -43,10 +39,6 @@ function Feed() {
                     {
                         name: "Dean's office",
                         current: true
-                    },
-                    {
-                        name: "You",
-                        current: false
                     }
                 ],
                 baseDocument: {
@@ -68,10 +60,6 @@ function Feed() {
                     {
                         name: "Dean's office",
                         current: false
-                    },
-                    {
-                        name: "You",
-                        current: false
                     }
                 ],
                 baseDocument: {
@@ -91,4 +79,4 @@ function Feed() {
     );
 }
 
-export default Feed;
+export default TicketsFeed;

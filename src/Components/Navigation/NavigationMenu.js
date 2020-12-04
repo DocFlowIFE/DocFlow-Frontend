@@ -20,7 +20,8 @@ function NavigationMenu(props){
         <div className={`${isNavCollapsed ? 'collapse' : ''} navbar-collapse`} id="navbarBox">
           <ul className="nav navbar-nav">
             <li className="m-auto"><Link to={`/`} className="nav-link text-main">Home</Link></li>
-            <li className="m-auto"><Link to={`/feed`} className="nav-link text-main">Feed</Link></li>
+            <li className="m-auto"><Link to={`/tickets`} className="nav-link text-main">My Tickets</Link></li>
+            <li className="m-auto"><Link to={`/templates`} className="nav-link text-main">Templates</Link></li>
           </ul>
           <ul className="nav navbar-nav ml-auto">
             <li className="m-2"><Link to={`/login`} className="btn btn-hot btn-block pl-4 pr-4">Login</Link></li>
