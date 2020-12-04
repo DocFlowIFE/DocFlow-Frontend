@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form'
+import Form from 'react-bootstrap/Form';
+import ErrorMessage from '../Components/ErrorMessage/ErrorMessage';
 
 function Login() {
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
+    const [message, setMessage] = useState("");
 
     let loginSubmit = (event) => {
         event.preventDefault();
@@ -36,6 +38,7 @@ function Login() {
                                 <span className="btng_text">Login</span>
                             </Button>
                         </Form>
+                        <ErrorMessage message={message} />
                     </div>
                 </div>
             </div>
