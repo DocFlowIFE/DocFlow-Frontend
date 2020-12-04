@@ -76,9 +76,22 @@ a:hover {
   font-weight: bold;
 }
 
-.btn-hot:hover, .btn-hot:active, .btn-hot:focus {
-  background-color: #F6B6EB;
+.btn-hot-bordered {
+  background-color: transparent;
   color: #222;
+  font-weight: bold;
+  transform: 1s;
+}
+
+.btn-hot-bordered:hover, .btn-hot-bordered:active, .btn-hot-bordered:focus, .btn-hot-bordered:visited {
+  background-color: #222 !important;
+  color: #F9CFF2 !important;
+  font-weight: bold;
+}
+
+.btn-hot:hover, .btn-hot:active, .btn-hot:focus {
+  background-color: #F6B6EB !important;
+  color: #222 !important;
   font-weight: bold;
 }
 

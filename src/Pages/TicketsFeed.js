@@ -5,6 +5,7 @@ function TicketsFeed() {
     let [documents, setDocuments] = useState(
         [
             {
+                ticketId: 68789821,
                 title: "Example document",
                 date: "15.10.2020",
                 description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris non pharetra augue. Aenean nec ipsum vulputate libero condimentum eleifend ac ut lacus. Etiam gravida tincidunt fringilla. Donec viverra scelerisque est non laoreet.",
@@ -26,6 +27,7 @@ function TicketsFeed() {
                 }
             },
             {
+                ticketId: 90009431,
                 title: "Important document",
                 date: "18.10.2020",
                 description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -47,6 +49,7 @@ function TicketsFeed() {
                 }
             },
             {
+                ticketId: 13749221,
                 title: "Just document",
                 date: "19.10.2020",
                 description: "Lorem ipsum dolor sit amet.",
