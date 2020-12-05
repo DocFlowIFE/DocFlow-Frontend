@@ -49,26 +49,46 @@ a:hover {
   font-weight: bold;
 }
 
+.btn-no-text {
+  color: #f3695f !important;
+}
+
+.btn-no-text:hover {
+  color: #f3695f !important;
+  cursor: pointer;
+}
+
 .btn-no {
   background-color: #f3695f !important;
-  color: #222;
+  color: #222 !important;
 }
 
 .btn-no:hover, .btn-no:active, .btn-no:focus, .btn-no:visited {
   cursor: pointer;
   background-color: #f8584d !important;
-  color: #222;
+  color: #222 !important;
+}
+
+.btn-no-white {
+  background-color: #f3695f !important;
+  color: #fff !important;
+}
+
+.btn-no-white:hover, .btn-no-white:active, .btn-no-white:focus, .btn-no-white:visited {
+  cursor: pointer;
+  background-color: #f8584d !important;
+  color: #fff !important;
 }
 
 .btn-yes {
   background-color: #a0e9bb !important;
-  color: #222;
+  color: #222 !important;
 }
 
 .btn-yes:hover, .btn-yes:active, .btn-yes:focus, .btn-yes:visited {
   background-color: #95f092 !important;
   cursor: pointer;
-  color: #222;
+  color: #222 !important;
 }
 
 .btn-hot {

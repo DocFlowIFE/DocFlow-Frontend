@@ -103,7 +103,7 @@ function Request(props) {
                     <Button variant="secondary" onClick={closeModals}>
                         Close
                     </Button>
-                    <Button className="btn btn-no text-white" onClick={e => reject(e)}>
+                    <Button className="btn btn-no-white" onClick={e => reject(e)}>
                         Yes, reject
                     </Button>
                 </Modal.Footer>
