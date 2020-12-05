@@ -5,10 +5,10 @@ import { BsFileEarmarkCheck } from "react-icons/bs";
 import FlowElement from '../FlowElement/FlowElement';
 import { AiOutlineSend } from 'react-icons/ai';
 
-function Ticket(props) {
+function Template(props) {
     let [template, setTemplate] = useState(props.template);
 
-    let createTicket = (event) => {
+    let createTemplate = (event) => {
         event.preventDefault();
         console.log(template.templateId);
     }
@@ -34,7 +34,7 @@ function Ticket(props) {
                 </ListGroup>
             </div>
             <div className="col-md-4 d-flex flex-column justify-content-center">
-                <Button className="btn btn-hot-bordered m-2 p-3 rounded" onClick={e => createTicket(e)}>
+                <Button className="btn btn-hot-bordered m-2 p-3 rounded" onClick={e => createTemplate(e)}>
                     <AiOutlineSend size={30}/>
                     <span className="d-block">Exchange document</span>
                 </Button>
@@ -43,4 +43,4 @@ function Ticket(props) {
     );
 }
 
-export default Ticket;
+export default Template;

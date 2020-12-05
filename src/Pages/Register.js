@@ -59,8 +59,8 @@ function Register() {
                                 <Form.Label>Password</Form.Label>
                                 <Form.Control type="password" onChange={e => handleSetPassword(e.target.value)} placeholder="Password" />
                             </Form.Group>
-                            <Button className="btng btn-block btng--gradient btng--xlrg rounded-0" variant="primary" type="submit">
-                                <span className="btng_text">Register</span>
+                            <Button className="btn btn-main btn-block p-2 mt-4 rounded-0" type="submit">
+                                Register
                             </Button>
                         </Form>
                         <ErrorMessage message={message} />

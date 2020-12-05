@@ -43,31 +43,32 @@ a:hover {
   font-weight: bold;
 }
 
-.btn-main:hover, .btn-main:active, .btn-main:focus {
+.btn-main:hover, .btn-main:active, .btn-main:focus, .btn-main:visited {
   background-color: #9ec6eb !important;
   color: #222 !important;
   font-weight: bold;
 }
 
 .btn-no {
-  color: #FE5F55;
+  background-color: #f3695f !important;
+  color: #222;
 }
 
-.btn-no:hover {
+.btn-no:hover, .btn-no:active, .btn-no:focus, .btn-no:visited {
   cursor: pointer;
-  font-weight: bold;
+  background-color: #f8584d !important;
+  color: #222;
 }
 
 .btn-yes {
-  background-color: #96E6B3;
+  background-color: #a0e9bb !important;
   color: #222;
-  font-weight: bold;
 }
 
-.btn-yes:hover, .btn-yes:active, .btn-yes:focus {
-  background-color: #8DF88B;
+.btn-yes:hover, .btn-yes:active, .btn-yes:focus, .btn-yes:visited {
+  background-color: #95f092 !important;
+  cursor: pointer;
   color: #222;
-  font-weight: bold;
 }
 
 .btn-hot {

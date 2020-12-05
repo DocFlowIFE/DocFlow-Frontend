@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
+import './navigationMenu.css';
 
 function NavigationMenu(props){
 
@@ -20,8 +21,12 @@ function NavigationMenu(props){
         <div className={`${isNavCollapsed ? 'collapse' : ''} navbar-collapse`} id="navbarBox">
           <ul className="nav navbar-nav">
             <li className="m-auto"><Link to={`/`} className="nav-link text-main">Home</Link></li>
+            <li className="list-divider"></li>
             <li className="m-auto"><Link to={`/tickets`} className="nav-link text-main">My Tickets</Link></li>
             <li className="m-auto"><Link to={`/templates`} className="nav-link text-main">Templates</Link></li>
+            <li className="list-divider"></li>
+            <li className="m-auto"><Link to={`/requests`} className="nav-link text-main">Requests</Link></li>
+            <li className="m-auto"><Link to={`/administration`} className="nav-link text-main">Administration</Link></li>
           </ul>
           <ul className="nav navbar-nav ml-auto">
             <li className="m-2"><Link to={`/login`} className="btn btn-hot btn-block pl-4 pr-4">Login</Link></li>

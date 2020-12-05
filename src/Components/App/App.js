@@ -6,6 +6,8 @@ import TicketsFeed from '../../Pages/TicketsFeed';
 import TemplatesFeed from '../../Pages/TemplatesFeed';
 import Login from '../../Pages/Login';
 import Register from '../../Pages/Register';
+import Administration from '../../Pages/Administration';
+import Requests from '../../Pages/Requests';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
@@ -29,6 +31,12 @@ function App() {
               </Route>
               <Route path="/register">
                   <Register />
+              </Route>
+              <Route path="/administration">
+                  <Administration />
+              </Route>
+              <Route path="/requests">
+                  <Requests />
               </Route>
           </Switch>
         </div>
