@@ -4,21 +4,71 @@ import Form from 'react-bootstrap/Form';
 import ErrorMessage from '../Components/ErrorMessage/ErrorMessage';
 import PasswordValidator from '../Services/PasswordValidator';
 
+import { CognitoUserPool, CognitoUserAttribute, CognitoUser } from 'amazon-cognito-identity-js';
+
 function Register() {
-    const [firstname, setFirstname] = useState(null);
-    const [lastname, setLastname] = useState(null);
     const [email, setEmail] = useState(null);
+    const [waitForConfirmation, setWaitForConfirmation] = useState(false);
     const [password, setPassword] = useState(null);
     const [isValidPassword, setIsValidPassword] = useState(false);
+    const [confirmationCode, setConfirmationCode] = useState(null);
     const [message, setMessage] = useState("");
+
+    var poolData = {
+        UserPoolId: 'us-east-1_UVqcmOCeb',
+        ClientId: '3dc45up4nratv28q4fa19rmshu',
+    };
+    var userPool = new CognitoUserPool(poolData);
+    var userData = {
+        Username: email,
+        Pool: userPool,
+    };
+    var attributeList = [];
+    attributeList.push(new CognitoUserAttribute({Name:"email",Value:email}));
 
     let registerSubmit = (event) => {
         event.preventDefault();
-        console.log("Firstname: " + firstname);
-        console.log("Lastname: " + lastname);
         console.log("Email: " + email);
         console.log("Password: " + password);
         console.log("IsValidPassword: " + isValidPassword);
+
+        if(isValidPassword)
+        {
+            userPool.signUp(email, password, attributeList, [], (err, data) => {
+                if(err)
+                {
+                    console.log(err);
+                    setMessage("Sorry, registration error has occurred");
+                }
+                else
+                {
+                    console.log(data);
+                    setMessage("");
+                    setWaitForConfirmation(true);
+                }
+            });
+        }
+        else
+        {
+            setMessage("Provided password is not valid.");
+        }
+    }
+
+    let confirmCode = (event) => {
+        event.preventDefault();
+        var cognitoUser = new CognitoUser(userData);
+        cognitoUser.confirmRegistration(confirmationCode, true, (err, result) => {
+            if(err)
+            {
+                console.log(err);
+                setMessage("Invalid code.");
+            }
+            else
+            {
+                console.log(result);
+                setMessage("");
+            }
+        });
     }
 
     let handleSetPassword = (pass) => {
@@ -42,15 +92,7 @@ function Register() {
                     <div className="jumbotron">
                         <h2 className="text-center mb-3">Register</h2>
                         <h5 className="font-weight-bold">Hello! Let's get started.</h5>
-                        <Form onSubmit={registerSubmit}>
-                            <Form.Group controlId="formFirstname">
-                                <Form.Label>Firstname</Form.Label>
-                                <Form.Control type="text" onChange={e => setFirstname(e.target.value)} placeholder="Firstname" />
-                            </Form.Group>
-                            <Form.Group controlId="formLastname">
-                                <Form.Label>Lastname</Form.Label>
-                                <Form.Control type="text" onChange={e => setLastname(e.target.value)} placeholder="Lastname" />
-                            </Form.Group>
+                        <Form onSubmit={registerSubmit} hidden={waitForConfirmation}>
                             <Form.Group controlId="formEmail">
                                 <Form.Label>Email address</Form.Label>
                                 <Form.Control type="email" onChange={e => setEmail(e.target.value)} placeholder="Enter email" />
@@ -59,8 +101,19 @@ function Register() {
                                 <Form.Label>Password</Form.Label>
                                 <Form.Control type="password" onChange={e => handleSetPassword(e.target.value)} placeholder="Password" />
                             </Form.Group>
-                            <Button className="btn btn-main btn-block p-2 mt-4 rounded-0" type="submit">
+                            <Button className="btn btn-main btn-block p-2 mt-4 rounded-0" type="submit" disabled={waitForConfirmation}>
                                 Register
+                            </Button>
+                        </Form>
+                        <ErrorMessage message={message} />
+                        <hr/>
+                        <Form onSubmit={confirmCode} hidden={!waitForConfirmation}>
+                            <Form.Group controlId="formCode">
+                                <Form.Label>Verification code</Form.Label>
+                                <Form.Control type="text" onChange={e => setConfirmationCode(e.target.value)} placeholder="Enter code" />
+                            </Form.Group>
+                            <Button className="btn btn-main btn-block p-2 mt-4 rounded-0" type="submit">
+                                Confirm
                             </Button>
                         </Form>
                         <ErrorMessage message={message} />

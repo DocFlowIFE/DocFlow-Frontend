@@ -10,7 +10,7 @@ function Home() {
                 <div className="col-md-6 p-0">
                     <div className="text-white p-5">
                         <h1>Hello !!!</h1>
-                        <p className="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus finibus, leo ac cursus mattis, ligula ligula vestibulum nisi, in venenatis neque turpis a nulla. Curabitur elementum facilisis tortor ac efficitur. Nullam iaculis consectetur tellus, et faucibus mi convallis sed. Curabitur lectus nisi, auctor sit amet sem ac, convallis tincidunt arcu. This is a simple application configured to create React applications with Bootstrap and Axios.
+                        <p className="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus finibus, leo ac cursus mattis, ligula ligula vestibulum nisi, in venenatis neque turpis a nulla. Curabitur elementum facilisis tortor ac efficitur. Nullam iaculis consectetur tellus, et faucibus mi convallis sed. Curabitur lectus nisi, auctor sit amet sem ac, convallis tincidunt arcu.
                         </p>
                         <p className="mt-5">
                             <Link to={`/login`}>
