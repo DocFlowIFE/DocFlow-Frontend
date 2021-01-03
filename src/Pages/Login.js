@@ -2,16 +2,42 @@ import React, { useState } from "react";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import ErrorMessage from '../Components/ErrorMessage/ErrorMessage';
+import UserPool from '../Components/Authentication/UserPool';
+import { AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js';
 
 function Login() {
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
     const [message, setMessage] = useState("");
 
+    var userData = {
+        Username: email,
+        Pool: UserPool,
+    };
+    var authenticationDetails = new AuthenticationDetails(
+        {
+            Username: email,
+            Password: password
+        }
+    );
+
     let loginSubmit = (event) => {
         event.preventDefault();
-        console.log("Email: " + email);
-        console.log("Password: " + password);
+        var cognitoUser = new CognitoUser(userData);
+        cognitoUser.setAuthenticationFlowType('USER_PASSWORD_AUTH');
+        cognitoUser.authenticateUser(authenticationDetails, {
+            onSuccess: data => {
+                console.log(data);
+                setMessage("");
+            },
+            onFailure: err => {
+                console.log(err);
+                setMessage("Invalid email or password.");
+            },
+            mfaRequired: () => {
+                setMessage("Please verify account.");
+            },
+        });
     }
 
     return (
@@ -25,9 +51,6 @@ function Login() {
                             <Form.Group controlId="formBasicEmail">
                                 <Form.Label>Email address</Form.Label>
                                 <Form.Control type="email" onChange={e => setEmail(e.target.value)} placeholder="Enter email" />
-                                <Form.Text className="text-muted">
-                                    We'll never share your email with anyone else.
-                                </Form.Text>
                             </Form.Group>
 
                             <Form.Group controlId="formBasicPassword">

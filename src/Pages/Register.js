@@ -3,8 +3,8 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import ErrorMessage from '../Components/ErrorMessage/ErrorMessage';
 import PasswordValidator from '../Services/PasswordValidator';
-
-import { CognitoUserPool, CognitoUserAttribute, CognitoUser } from 'amazon-cognito-identity-js';
+import UserPool from '../Components/Authentication/UserPool';
+import { CognitoUserAttribute, CognitoUser } from 'amazon-cognito-identity-js';
 
 function Register() {
     const [email, setEmail] = useState(null);
@@ -13,28 +13,19 @@ function Register() {
     const [isValidPassword, setIsValidPassword] = useState(false);
     const [confirmationCode, setConfirmationCode] = useState(null);
     const [message, setMessage] = useState("");
-
-    var poolData = {
-        UserPoolId: 'us-east-1_UVqcmOCeb',
-        ClientId: '3dc45up4nratv28q4fa19rmshu',
-    };
-    var userPool = new CognitoUserPool(poolData);
+   
     var userData = {
         Username: email,
-        Pool: userPool,
+        Pool: UserPool,
     };
     var attributeList = [];
     attributeList.push(new CognitoUserAttribute({Name:"email",Value:email}));
 
     let registerSubmit = (event) => {
         event.preventDefault();
-        console.log("Email: " + email);
-        console.log("Password: " + password);
-        console.log("IsValidPassword: " + isValidPassword);
-
         if(isValidPassword)
         {
-            userPool.signUp(email, password, attributeList, [], (err, data) => {
+            UserPool.signUp(email, password, attributeList, [], (err, data) => {
                 if(err)
                 {
                     console.log(err);
@@ -65,8 +56,7 @@ function Register() {
             }
             else
             {
-                console.log(result);
-                setMessage("");
+                window.location = "/login";
             }
         });
     }
@@ -105,8 +95,6 @@ function Register() {
                                 Register
                             </Button>
                         </Form>
-                        <ErrorMessage message={message} />
-                        <hr/>
                         <Form onSubmit={confirmCode} hidden={!waitForConfirmation}>
                             <Form.Group controlId="formCode">
                                 <Form.Label>Verification code</Form.Label>
