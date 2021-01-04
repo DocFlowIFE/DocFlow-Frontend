@@ -45,7 +45,7 @@ function UploadFile(props) {
             </Form.Group>
             {fileBox}
             <Button className="btn btn-main btn-block mt-4" type="submit" disabled={file === null || file === ""}>
-                Send
+                { props.btnText? props.btnText : "Send" }
             </Button>
         </Form>
     );

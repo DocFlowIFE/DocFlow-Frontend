@@ -3,6 +3,7 @@ import { Button, Jumbotron } from "react-bootstrap";
 import ListGroup from 'react-bootstrap/ListGroup';
 import { BsCheckAll, BsX } from 'react-icons/bs';
 import DownloadFile from "../DownloadFile/DownloadFile";
+import UploadFile from "../UploadFile/UploadFile";
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 
@@ -20,10 +21,15 @@ function Request(props) {
     let showAcceptModal = () => setAcceptShow(true);
     let showRejectModal = () => setRejectShow(true);
 
-    let accept = (event) => {
+    let acceptWithoutDocument = (event) => {
         event.preventDefault();
         console.log("Accepted: " + request.requestId);
         console.log(request.comment);
+    }
+
+    let uploadAndAccept = (event, file) => {
+        console.log("Accepted: " + request.requestId);
+        console.log(file);
     }
 
     let reject = (event) => {
@@ -67,21 +73,17 @@ function Request(props) {
                     <Modal.Title>Accept</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form>
-                        <Form.Group controlId="acceptComment">
-                            <Form.Label>Add comment here</Form.Label>
-                            <Form.Control as="textarea" rows={3} onChange={e => request.comment = e.target.value}/>
-                        </Form.Group>
-                    </Form>
+                    <span>Accept ticket and send forward.</span>
                     <hr/>
-                    <span>Are you sure you want to <u>accept</u> this document?</span>
+                    <UploadFile id={props.id+"_UploadFile"} onFileSend={uploadAndAccept} btnText="Send and accept" />
+                    <hr/>
+                    <Button className="btn btn-yes btn-block" onClick={e => acceptWithoutDocument(e)}>
+                        <b>Accept without document</b>
+                    </Button>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={closeModals}>
                         Close
-                    </Button>
-                    <Button className="btn btn-yes" onClick={e => accept(e)}>
-                        Yes, accept
                     </Button>
                 </Modal.Footer>
             </Modal>
@@ -97,7 +99,7 @@ function Request(props) {
                         </Form.Group>
                     </Form>
                     <hr/>
-                    <span>Are you sure you want to <u>reject</u> this document?</span>
+                    <span>Are you sure you want to <u>reject</u> this ticket?</span>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={closeModals}>
