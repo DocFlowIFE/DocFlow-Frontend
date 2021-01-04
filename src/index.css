@@ -43,31 +43,52 @@ a:hover {
   font-weight: bold;
 }
 
-.btn-main:hover, .btn-main:active, .btn-main:focus {
+.btn-main:hover, .btn-main:active, .btn-main:focus, .btn-main:visited {
   background-color: #9ec6eb !important;
   color: #222 !important;
   font-weight: bold;
 }
 
-.btn-no {
-  color: #FE5F55;
+.btn-no-text {
+  color: #f3695f !important;
 }
 
-.btn-no:hover {
+.btn-no-text:hover {
+  color: #f3695f !important;
   cursor: pointer;
-  font-weight: bold;
+}
+
+.btn-no {
+  background-color: #f3695f !important;
+  color: #222 !important;
+}
+
+.btn-no:hover, .btn-no:active, .btn-no:focus, .btn-no:visited {
+  cursor: pointer;
+  background-color: #f8584d !important;
+  color: #222 !important;
+}
+
+.btn-no-white {
+  background-color: #f3695f !important;
+  color: #fff !important;
+}
+
+.btn-no-white:hover, .btn-no-white:active, .btn-no-white:focus, .btn-no-white:visited {
+  cursor: pointer;
+  background-color: #f8584d !important;
+  color: #fff !important;
 }
 
 .btn-yes {
-  background-color: #96E6B3;
-  color: #222;
-  font-weight: bold;
+  background-color: #a0e9bb !important;
+  color: #222 !important;
 }
 
-.btn-yes:hover, .btn-yes:active, .btn-yes:focus {
-  background-color: #8DF88B;
-  color: #222;
-  font-weight: bold;
+.btn-yes:hover, .btn-yes:active, .btn-yes:focus, .btn-yes:visited {
+  background-color: #95f092 !important;
+  cursor: pointer;
+  color: #222 !important;
 }
 
 .btn-hot {
@@ -76,9 +97,22 @@ a:hover {
   font-weight: bold;
 }
 
-.btn-hot:hover, .btn-hot:active, .btn-hot:focus {
-  background-color: #F6B6EB;
+.btn-hot-bordered {
+  background-color: transparent;
   color: #222;
+  font-weight: bold;
+  transform: 1s;
+}
+
+.btn-hot-bordered:hover, .btn-hot-bordered:active, .btn-hot-bordered:focus, .btn-hot-bordered:visited {
+  background-color: #222 !important;
+  color: #F9CFF2 !important;
+  font-weight: bold;
+}
+
+.btn-hot:hover, .btn-hot:active, .btn-hot:focus {
+  background-color: #F6B6EB !important;
+  color: #222 !important;
   font-weight: bold;
 }
 
@@ -93,51 +127,6 @@ a:hover {
   color: #666666 !important;
 }
 
-.btng {
-  position: relative;
-  display: inline-block;
-  vertical-align: middle;
-  touch-action: manipulation;
-  user-select: none;
-  cursor: pointer;
-  white-space: nowrap;
-  text-decoration: none;
-  text-align: center;
-  border: 0;
-  transition: all 250ms ease-in-out;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-}
-
-.btng--gradient {
-  transition: all 500ms ease-in-out;
-  font-size: 24px;
-  color: #fff;
-  background: linear-gradient(54.7deg, #577399 20%, #F7F7FF 100%);
-}
-
-.btng--gradient:hover, .btng--gradient:active {
-  color: #fff;
-}
-
-.btng--gradient:before {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  opacity: 0;
-  transition: all 500ms ease-in-out;
-  background: linear-gradient(54.7deg, #577399 100%, #577399 20%);
-}
-
-.btng--gradient:hover:before {
-  opacity: 1;
-  color: #fff;
-}
-
-.btng_text {
-  z-index: 2;
-  position: relative;
+.second {
+  font-size: 0.9rem;
 }

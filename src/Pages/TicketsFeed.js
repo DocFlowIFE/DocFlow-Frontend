@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { AccountContext } from "../Components/Authentication/Account";
 import Ticket from "../Components/Ticket/Ticket";
 
-function Feed() {
+function TicketsFeed() {
     let [documents, setDocuments] = useState(
         [
             {
+                ticketId: 68789821,
                 title: "Example document",
                 date: "15.10.2020",
                 description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris non pharetra augue. Aenean nec ipsum vulputate libero condimentum eleifend ac ut lacus. Etiam gravida tincidunt fringilla. Donec viverra scelerisque est non laoreet.",
@@ -18,10 +20,6 @@ function Feed() {
                     {
                         name: "Dean's office",
                         current: false
-                    },
-                    {
-                        name: "You",
-                        current: false
                     }
                 ],
                 baseDocument: {
@@ -30,6 +28,7 @@ function Feed() {
                 }
             },
             {
+                ticketId: 90009431,
                 title: "Important document",
                 date: "18.10.2020",
                 description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -43,10 +42,6 @@ function Feed() {
                     {
                         name: "Dean's office",
                         current: true
-                    },
-                    {
-                        name: "You",
-                        current: false
                     }
                 ],
                 baseDocument: {
@@ -55,6 +50,7 @@ function Feed() {
                 }
             },
             {
+                ticketId: 13749221,
                 title: "Just document",
                 date: "19.10.2020",
                 description: "Lorem ipsum dolor sit amet.",
@@ -68,10 +64,6 @@ function Feed() {
                     {
                         name: "Dean's office",
                         current: false
-                    },
-                    {
-                        name: "You",
-                        current: false
                     }
                 ],
                 baseDocument: {
@@ -82,6 +74,17 @@ function Feed() {
         ]
     );
 
+    const { getSession } = useContext(AccountContext);
+    useEffect(() => {
+        getSession()
+        .then(token => {
+            console.log(token);
+        })
+        .catch(() => {
+            window.location = "/login";
+        });
+    }, []);
+
     return (
         <div className="container mt-5">
             {documents.map((document, index) => (
@@ -91,4 +94,4 @@ function Feed() {
     );
 }
 
-export default Feed;
+export default TicketsFeed;

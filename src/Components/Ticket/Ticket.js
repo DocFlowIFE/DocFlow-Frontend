@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Jumbotron } from "react-bootstrap";
+import { BsFileEarmarkCheck } from "react-icons/bs";
 import ListGroup from 'react-bootstrap/ListGroup';
 import Alert from 'react-bootstrap/Alert';
 import UploadFile from "../UploadFile/UploadFile";
+import FlowElement from '../FlowElement/FlowElement';
 import DownloadFile from "../DownloadFile/DownloadFile";
 
 function Ticket(props) {
@@ -28,20 +30,6 @@ function Ticket(props) {
                 {document.status}
             </Alert>
         )
-    }
-
-    let getFlowBox = (document) => {
-        let result = '';
-        document.flow.forEach((target) => {
-            if (target.current === true) {
-                result += '<b><u class="text-hot">'+target.name+'</u></b> - ';
-            }
-            else {
-                result += target.name + ' - ';
-            }
-        });
-        result = result.substring(0, result.length - 2);
-        return (<div dangerouslySetInnerHTML={{__html: result}}></div>);
     }
 
     let getUploadFileComponent = (document) => {
@@ -77,7 +65,12 @@ function Ticket(props) {
                     </ListGroup.Item>
                     <ListGroup.Item>
                         <span className="font-weight-bold">Flow: </span>
-                        {getFlowBox(document)}
+                        {
+                            document.flow.map((target, id) =>
+                                <FlowElement key={id} target={target}/>
+                            )
+                        }
+                        <BsFileEarmarkCheck />
                     </ListGroup.Item>
                     {getCommentBox(document)}
                 </ListGroup>

@@ -1,0 +1,7 @@
+.list-divider
+{
+    display: block;
+    margin: 0px 1rem 0px 1rem;
+    min-height: 100%;
+    border-left: 1px solid rgba(0,0,0,.5);
+}
