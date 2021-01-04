@@ -35,7 +35,7 @@ function UploadFile(props) {
     }
 
     return (
-        <Form className="text-center" onSubmit={ e => props.onFileSend(e, file) }>
+        <Form className="text-center mt-4" onSubmit={ e => props.onFileSend(e, file) }>
             <Form.Label htmlFor={fileInputId} className="d-block custom-file-upload">
                 <AiOutlineCloudUpload className="mr-1" size={50} />
                 <span className="d-block">Upload File</span>

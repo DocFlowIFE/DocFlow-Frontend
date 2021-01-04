@@ -75,14 +75,14 @@ function Ticket(props) {
                     {getCommentBox(document)}
                 </ListGroup>
                 {getStatusBox(document)}
-                <div className="col-md-12 mt-4">
+            </div>
+            <div className="col-md-4 d-flex flex-column justify-content-center">
+                <div>
                     <h4>Files exchanged</h4>
                     {document.files.map((file, index) => (
                         <DownloadFile key={props.id+"_DownloadFile_"+index} fileId={file.fileId} fileName={file.fileName} />
                     ))}
                 </div>
-            </div>
-            <div className="col-md-4 d-flex flex-column justify-content-center">
                 {getUploadFileComponent(document)}
             </div>
         </Jumbotron>

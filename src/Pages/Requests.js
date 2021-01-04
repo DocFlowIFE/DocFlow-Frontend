@@ -6,28 +6,46 @@ function Requests() {
     let [requests, setRequests] = useState(
         [
             {
-                requestId: 78789821,
+                ticketId: 78789821,
                 title: "Example document",
                 description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris non pharetra augue. Aenean nec ipsum vulputate libero condimentum eleifend ac ut lacus. Etiam gravida tincidunt fringilla. Donec viverra scelerisque est non laoreet.",
-                sender: "Edyta Górniak",
-                baseDocument: {
-                    fileName: "exampleFile.docx",
-                    fileId: 54394324
-                },
-                document: {
-                    fileName: "edytaFile.docx",
-                    fileId: 54394324
-                }
+                flow: [
+                    {
+                        name: "You",
+                        current: false
+                    },
+                    {
+                        name: "Dean's office",
+                        current: true
+                    }
+                ],
+                files: [
+                    {
+                        fileName: "edytaFile.docx",
+                        fileId: 54394324
+                    }
+                ]
             },
             {
-                requestId: 90009431,
+                ticketId: 90009431,
                 title: "Important document",
                 description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                sender: "Marek Grechuta",
-                document: {
-                    fileName: "marekFileASAP.docx",
-                    fileId: 3231141
-                }
+                flow: [
+                    {
+                        name: "You",
+                        current: false
+                    },
+                    {
+                        name: "Dean's office",
+                        current: true
+                    }
+                ],
+                files: [
+                    {
+                        fileName: "marekFileASAP.docx",
+                        fileId: 3231141
+                    }
+                ]
             }
         ]
     );

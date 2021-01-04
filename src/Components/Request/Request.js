@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Button, Jumbotron } from "react-bootstrap";
+import { BsFileEarmarkCheck } from "react-icons/bs";
 import ListGroup from 'react-bootstrap/ListGroup';
 import { BsCheckAll, BsX } from 'react-icons/bs';
 import DownloadFile from "../DownloadFile/DownloadFile";
 import UploadFile from "../UploadFile/UploadFile";
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
+import FlowElement from '../FlowElement/FlowElement';
 
 function Request(props) {
     let [request, setRequest] = useState(props.request);
@@ -23,18 +25,18 @@ function Request(props) {
 
     let acceptWithoutDocument = (event) => {
         event.preventDefault();
-        console.log("Accepted: " + request.requestId);
+        console.log("Accepted: " + request.ticketId);
         console.log(request.comment);
     }
 
     let uploadAndAccept = (event, file) => {
-        console.log("Accepted: " + request.requestId);
+        console.log("Accepted: " + request.ticketId);
         console.log(file);
     }
 
     let reject = (event) => {
         event.preventDefault();
-        console.log("Rejected: " + request.requestId);
+        console.log("Rejected: " + request.ticketId);
         console.log(request.comment);
     }
 
@@ -48,14 +50,26 @@ function Request(props) {
                         {request.description}
                     </ListGroup.Item>
                     <ListGroup.Item>
-                        <span className="font-weight-bold">Sender: </span>
-                        {request.sender}
+                        <span className="font-weight-bold">Flow: </span>
+                        {
+                            request.flow.map((target, id) =>
+                                <FlowElement key={id} target={target}/>
+                            )
+                        }
+                        <BsFileEarmarkCheck />
                     </ListGroup.Item>
                 </ListGroup>
             </div>
             <div className="col-md-4 d-flex flex-column justify-content-center">
-                <DownloadFile key={props.id+"_DownloadFile"} fileId={request.document.fileId} fileName={request.document.fileName} />
-                <div className="row"> 
+                <div className="row">
+                    <div className="col-md-12 mt-4">
+                        <h4>Files exchanged</h4>
+                        {request.files.map((file, index) => (
+                            <DownloadFile key={props.id+"_DownloadFile_"+index} fileId={file.fileId} fileName={file.fileName} />
+                        ))}
+                    </div>
+                </div>
+                <div className="row mt-4">
                     <div className="col-6 d-flex flex-column justify-content-center">
                         <Button className="m-2 btn btn-yes" onClick={e => showAcceptModal()}>
                             <BsCheckAll size={30}/>
