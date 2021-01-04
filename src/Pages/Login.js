@@ -1,43 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { AccountContext } from "../Components/Authentication/Account";
 import ErrorMessage from '../Components/ErrorMessage/ErrorMessage';
-import UserPool from '../Components/Authentication/UserPool';
-import { AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js';
 
 function Login() {
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
     const [message, setMessage] = useState("");
 
-    var userData = {
-        Username: email,
-        Pool: UserPool,
-    };
-    var authenticationDetails = new AuthenticationDetails(
-        {
-            Username: email,
-            Password: password
-        }
-    );
+    const { authenticate } = useContext(AccountContext);
 
     let loginSubmit = (event) => {
         event.preventDefault();
-        var cognitoUser = new CognitoUser(userData);
-        cognitoUser.setAuthenticationFlowType('USER_PASSWORD_AUTH');
-        cognitoUser.authenticateUser(authenticationDetails, {
-            onSuccess: data => {
-                console.log(data);
-                setMessage("");
-            },
-            onFailure: err => {
-                console.log(err);
-                setMessage("Invalid email or password.");
-            },
-            mfaRequired: () => {
-                setMessage("Please verify account.");
-            },
-        });
+        authenticate(email, password)
+            .then(res => {
+                window.location = "/tickets";
+            })
+            .catch(err => {
+                setMessage(err);
+            });
     }
 
     return (

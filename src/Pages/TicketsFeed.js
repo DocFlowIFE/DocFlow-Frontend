@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { AccountContext } from "../Components/Authentication/Account";
 import Ticket from "../Components/Ticket/Ticket";
 
 function TicketsFeed() {
@@ -72,6 +73,17 @@ function TicketsFeed() {
             }
         ]
     );
+
+    const { getSession } = useContext(AccountContext);
+    useEffect(() => {
+        getSession()
+        .then(token => {
+            console.log(token);
+        })
+        .catch(() => {
+            //window.location = "/login";
+        });
+    }, []);
 
     return (
         <div className="container mt-5">

@@ -1,12 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from "react";
+import { AccountContext } from "../Authentication/Account";
 import { Link } from "react-router-dom";
 import './navigationMenu.css';
 
 function NavigationMenu(props){
-
     const [isNavCollapsed, setIsNavCollapsed] = useState(true);
-
     const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
+
+    const [isUser, setIsUser] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
+
+    const { getSession } = useContext(AccountContext);
+    useEffect(() => {
+        getSession()
+        .then(token => {
+          setIsUser(true);
+          setIsAdmin(true);
+        })
+        .catch(() => {
+            //window.location = "/login";
+        });
+    }, []);
   
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light border-bottom border-dark">
@@ -21,12 +35,12 @@ function NavigationMenu(props){
         <div className={`${isNavCollapsed ? 'collapse' : ''} navbar-collapse`} id="navbarBox">
           <ul className="nav navbar-nav">
             <li className="m-auto"><Link to={`/`} className="nav-link text-main">Home</Link></li>
-            <li className="list-divider"></li>
-            <li className="m-auto"><Link to={`/tickets`} className="nav-link text-main">My Tickets</Link></li>
-            <li className="m-auto"><Link to={`/templates`} className="nav-link text-main">Templates</Link></li>
-            <li className="list-divider"></li>
-            <li className="m-auto"><Link to={`/requests`} className="nav-link text-main">Requests</Link></li>
-            <li className="m-auto"><Link to={`/administration`} className="nav-link text-main">Administration</Link></li>
+            <li className="list-divider" hidden={!isUser}></li>
+            <li className="m-auto"><Link to={`/tickets`} className="nav-link text-main" hidden={!isUser}>My Tickets</Link></li>
+            <li className="m-auto"><Link to={`/templates`} className="nav-link text-main" hidden={!isUser}>Templates</Link></li>
+            <li className="list-divider" hidden={!isAdmin}></li>
+            <li className="m-auto"><Link to={`/requests`} className="nav-link text-main" hidden={!isAdmin}>Requests</Link></li>
+            <li className="m-auto"><Link to={`/administration`} className="nav-link text-main" hidden={!isAdmin}>Administration</Link></li>
           </ul>
           <ul className="nav navbar-nav ml-auto">
             <li className="m-2"><Link to={`/login`} className="btn btn-hot btn-block pl-4 pr-4">Login</Link></li>

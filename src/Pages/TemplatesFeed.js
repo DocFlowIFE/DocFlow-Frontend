@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { AccountContext } from "../Components/Authentication/Account";
 import Template from "../Components/Template/Template";
 
 function TemplateFeed() {
@@ -44,6 +45,17 @@ function TemplateFeed() {
             }
         ]
     );
+
+    const { getSession } = useContext(AccountContext);
+    useEffect(() => {
+        getSession()
+        .then(token => {
+            console.log(token);
+        })
+        .catch(() => {
+            //window.location = "/login";
+        });
+    }, []);
 
     return (
         <div className="container mt-5">
