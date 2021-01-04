@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { AiOutlineCloudDownload } from 'react-icons/ai';
 import './downloadFile.css';
 
 function DownloadFile(props) {
@@ -11,10 +10,8 @@ function DownloadFile(props) {
     }
 
     return (
-        <div className="text-center text-main download mb-4" onClick={() => downloadFile(fileId)}>
-            <AiOutlineCloudDownload size={80} />
-            <span className="d-block">Download File</span>
-            <span className="d-block">{fileName}</span>
+        <div className="text-main download" onClick={() => downloadFile(fileId)}>
+            <span className="d-block p-2">{fileName}</span>
         </div>
     );
 }

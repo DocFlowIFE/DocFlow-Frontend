@@ -26,7 +26,7 @@ function Ticket(props) {
             default: variant = 'secondary';
         }
         return (
-            <Alert variant={variant} className="mt-4">
+            <Alert variant={variant} className="m-3">
                 {document.status}
             </Alert>
         )
@@ -75,9 +75,14 @@ function Ticket(props) {
                     {getCommentBox(document)}
                 </ListGroup>
                 {getStatusBox(document)}
+                <div className="col-md-12 mt-4">
+                    <h4>Files exchanged</h4>
+                    {document.files.map((file, index) => (
+                        <DownloadFile key={props.id+"_DownloadFile_"+index} fileId={file.fileId} fileName={file.fileName} />
+                    ))}
+                </div>
             </div>
             <div className="col-md-4 d-flex flex-column justify-content-center">
-                <DownloadFile key={props.id+"_DownloadFile"} fileId={document.baseDocument.fileId} fileName={document.baseDocument.fileName} />
                 {getUploadFileComponent(document)}
             </div>
         </Jumbotron>

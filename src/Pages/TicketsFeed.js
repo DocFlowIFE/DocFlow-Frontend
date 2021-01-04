@@ -22,10 +22,12 @@ function TicketsFeed() {
                         current: false
                     }
                 ],
-                baseDocument: {
-                    fileName: "exampleFile.docx",
-                    fileId: 54394324
-                }
+                files: [
+                    {
+                        fileName: "exampleFile.docx",
+                        fileId: 54394324
+                    }
+                ]
             },
             {
                 ticketId: 90009431,
@@ -44,10 +46,12 @@ function TicketsFeed() {
                         current: true
                     }
                 ],
-                baseDocument: {
-                    fileName: "importantFile.docx",
+                files: [
+                    {
+                        fileName: "importantFile.docx",
                     fileId: 3231141
-                }
+                    }
+                ]
             },
             {
                 ticketId: 13749221,
@@ -66,10 +70,16 @@ function TicketsFeed() {
                         current: false
                     }
                 ],
-                baseDocument: {
-                    fileName: "justFile.docx",
-                    fileId: 3213119
-                }
+                files: [
+                    {
+                        fileName: "justFile.docx",
+                        fileId: 3213119
+                    },
+                    {
+                        fileName: "response.docx",
+                        fileId: 7865431
+                    }
+                ]
             }
         ]
     );

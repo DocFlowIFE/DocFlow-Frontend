@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
+import Button from 'react-bootstrap/Button';
 import { AccountContext } from "../Authentication/Account";
 import { Link } from "react-router-dom";
 import './navigationMenu.css';
@@ -51,7 +52,7 @@ function NavigationMenu(props){
             <li className="m-2"><Link to={`/register`} className="btn btn-main btn-block pl-4 pr-4">Register</Link></li>
           </ul>
           <ul className="nav navbar-nav ml-auto" hidden={!isUser && !isAdmin}>
-            <li className="m-2"><Link onClick={() => { logout(); window.location="/"; }} className="btn btn-hot btn-block pl-4 pr-4">Logout</Link></li>
+            <li className="m-2"><Button onClick={() => { logout(); window.location="/"; }} className="btn btn-hot btn-block pl-4 pr-4">Logout</Button></li>
           </ul>
         </div>
       </nav>
