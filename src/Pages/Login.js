@@ -17,7 +17,14 @@ function Login() {
         logout();
         authenticate(email, password, isAdmin)
             .then(res => {
-                window.location = "/tickets";
+                if(isAdmin)
+                {
+                    window.location = "/requests";
+                }
+                else
+                {
+                    window.location = "/tickets";
+                }
             })
             .catch(err => {
                 setMessage(err);
