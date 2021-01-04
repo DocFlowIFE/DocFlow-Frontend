@@ -1,13 +1,18 @@
 import { React, createContext } from 'react';
 import UserPool from './UserPool';
+import AdminPool from './AdminPool';
 import { AuthenticationDetails, CognitoUser } from 'amazon-cognito-identity-js';
 
 const AccountContext = createContext();
 
 const Account = props => {
-    const getSession = async () => {
+    const getSession = async (asAdmin = false) => {
         return await new Promise((resolve, reject) => {
-            const user = UserPool.getCurrentUser();
+            var user = UserPool.getCurrentUser();
+            if (asAdmin)
+            {
+                user = AdminPool.getCurrentUser();
+            }
             if (user) {
                 user.getSession((err, session) => {
                     if (err) {
@@ -22,9 +27,18 @@ const Account = props => {
         });
     };
 
-    const authenticate = async (email, password) => {
+    const authenticate = async (email, password, asAdmin = false) => {
         return await new Promise((resolve, reject) => {
+            if(!email || !password)
+            {
+                reject("Invalid email or password.");
+            }
+
             var userData = { Username: email, Pool: UserPool, };
+            if(asAdmin)
+            {
+                userData = { Username: email, Pool: AdminPool, };
+            } 
             var authenticationDetails = new AuthenticationDetails(
                 { Username: email, Password: password }
             );
@@ -47,9 +61,14 @@ const Account = props => {
 
     const logout = () => {
         const user = UserPool.getCurrentUser();
+        const admin = AdminPool.getCurrentUser();
         if (user)
         {
             user.signOut();
+        }
+        if (admin)
+        {
+            admin.signOut();
         }
     }
 

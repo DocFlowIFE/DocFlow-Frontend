@@ -8,12 +8,14 @@ function Login() {
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
     const [message, setMessage] = useState("");
+    const [isAdmin, setIsAdmin] = useState(false);
 
-    const { authenticate } = useContext(AccountContext);
+    const { logout, authenticate } = useContext(AccountContext);
 
     let loginSubmit = (event) => {
         event.preventDefault();
-        authenticate(email, password)
+        logout();
+        authenticate(email, password, isAdmin)
             .then(res => {
                 window.location = "/tickets";
             })
@@ -39,6 +41,7 @@ function Login() {
                                 <Form.Label>Password</Form.Label>
                                 <Form.Control type="password" onChange={e => setPassword(e.target.value)} placeholder="Password" />
                             </Form.Group>
+                            <Form.Check type="checkbox" label="Administration account" onChange={e => {setIsAdmin(e.target.checked)}} className="second"/>
                             <Button className="btn btn-hot btn-block p-2 mt-4 rounded-0" type="submit">
                                 Login
                             </Button>

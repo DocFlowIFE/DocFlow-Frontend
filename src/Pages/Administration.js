@@ -4,7 +4,7 @@ import { AccountContext } from "../Components/Authentication/Account";
 function Administration() {
     const { getSession } = useContext(AccountContext);
     useEffect(() => {
-        getSession()
+        getSession(true)
         .then(token => {
             console.log(token);
         })

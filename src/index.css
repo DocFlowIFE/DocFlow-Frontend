@@ -127,51 +127,6 @@ a:hover {
   color: #666666 !important;
 }
 
-.btng {
-  position: relative;
-  display: inline-block;
-  vertical-align: middle;
-  touch-action: manipulation;
-  user-select: none;
-  cursor: pointer;
-  white-space: nowrap;
-  text-decoration: none;
-  text-align: center;
-  border: 0;
-  transition: all 250ms ease-in-out;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-}
-
-.btng--gradient {
-  transition: all 500ms ease-in-out;
-  font-size: 24px;
-  color: #fff;
-  background: linear-gradient(54.7deg, #577399 20%, #F7F7FF 100%);
-}
-
-.btng--gradient:hover, .btng--gradient:active {
-  color: #fff;
-}
-
-.btng--gradient:before {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  opacity: 0;
-  transition: all 500ms ease-in-out;
-  background: linear-gradient(54.7deg, #577399 100%, #577399 20%);
-}
-
-.btng--gradient:hover:before {
-  opacity: 1;
-  color: #fff;
-}
-
-.btng_text {
-  z-index: 2;
-  position: relative;
+.second {
+  font-size: 0.9rem;
 }
