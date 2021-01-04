@@ -53,7 +53,7 @@ function TemplateFeed() {
             console.log(token);
         })
         .catch(() => {
-            //window.location = "/login";
+            window.location = "/login";
         });
     }, []);
 

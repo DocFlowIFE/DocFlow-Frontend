@@ -81,7 +81,7 @@ function TicketsFeed() {
             console.log(token);
         })
         .catch(() => {
-            //window.location = "/login";
+            window.location = "/login";
         });
     }, []);
 

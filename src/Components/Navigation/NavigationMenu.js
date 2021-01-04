@@ -10,16 +10,14 @@ function NavigationMenu(props){
     const [isUser, setIsUser] = useState(false);
     const [isAdmin, setIsAdmin] = useState(false);
 
-    const { getSession } = useContext(AccountContext);
+    const { getSession, logout } = useContext(AccountContext);
     useEffect(() => {
         getSession()
         .then(token => {
           setIsUser(true);
           setIsAdmin(true);
         })
-        .catch(() => {
-            //window.location = "/login";
-        });
+        .catch(() => {});
     }, []);
   
     return (
@@ -42,9 +40,12 @@ function NavigationMenu(props){
             <li className="m-auto"><Link to={`/requests`} className="nav-link text-main" hidden={!isAdmin}>Requests</Link></li>
             <li className="m-auto"><Link to={`/administration`} className="nav-link text-main" hidden={!isAdmin}>Administration</Link></li>
           </ul>
-          <ul className="nav navbar-nav ml-auto">
+          <ul className="nav navbar-nav ml-auto" hidden={isUser && isAdmin}>
             <li className="m-2"><Link to={`/login`} className="btn btn-hot btn-block pl-4 pr-4">Login</Link></li>
             <li className="m-2"><Link to={`/register`} className="btn btn-main btn-block pl-4 pr-4">Register</Link></li>
+          </ul>
+          <ul className="nav navbar-nav ml-auto" hidden={!isUser && !isAdmin}>
+            <li className="m-2"><Link onClick={() => { logout(); window.location="/"; }} className="btn btn-hot btn-block pl-4 pr-4">Logout</Link></li>
           </ul>
         </div>
       </nav>
