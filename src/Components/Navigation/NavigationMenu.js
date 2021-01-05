@@ -30,22 +30,22 @@ function NavigationMenu(props){
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light border-bottom border-dark">
         <Link to={`/`} className="navbar-brand font-weight-bolder">
-          <span className="text-main">DocFlow</span>
+          <span className="text-white font-big">DocFlow</span>
         </Link>
-        <button className="custom-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarBox" aria-controls="navbarBox"
+        <button className="custom-toggler navbar-toggler mr-3" type="button" data-toggle="collapse" data-target="#navbarBox" aria-controls="navbarBox"
             aria-expanded={!isNavCollapsed ? true : false} aria-label="Toggle navigation" onClick={handleNavCollapse}>
           <span className="navbar-toggler-icon"></span>
         </button>
   
-        <div className={`${isNavCollapsed ? 'collapse' : ''} navbar-collapse`} id="navbarBox">
+        <div className={`${isNavCollapsed ? 'collapse' : ''} navbar-collapse ml-3 pr-3`} id="navbarBox">
           <ul className="nav navbar-nav">
-            <li className="m-auto"><Link to={`/`} className="nav-link text-main">Home</Link></li>
+            <li className="m-auto"><Link to={`/`} className="nav-link text-nav">Home</Link></li>
             <li className="list-divider" hidden={!isUser}></li>
-            <li className="m-auto"><Link to={`/tickets`} className="nav-link text-main" hidden={!isUser}>My Tickets</Link></li>
-            <li className="m-auto"><Link to={`/templates`} className="nav-link text-main" hidden={!isUser}>Templates</Link></li>
+            <li className="m-auto"><Link to={`/tickets`} className="nav-link text-nav" hidden={!isUser}>My Tickets</Link></li>
+            <li className="m-auto"><Link to={`/templates`} className="nav-link text-nav" hidden={!isUser}>Templates</Link></li>
             <li className="list-divider" hidden={!isAdmin}></li>
-            <li className="m-auto"><Link to={`/requests`} className="nav-link text-main" hidden={!isAdmin}>Requests</Link></li>
-            <li className="m-auto"><Link to={`/administration`} className="nav-link text-main" hidden={!isAdmin}>Administration</Link></li>
+            <li className="m-auto"><Link to={`/requests`} className="nav-link text-nav" hidden={!isAdmin}>Requests</Link></li>
+            <li className="m-auto"><Link to={`/administration`} className="nav-link text-nav" hidden={!isAdmin}>Administration</Link></li>
           </ul>
           <ul className="nav navbar-nav ml-auto" hidden={isUser || isAdmin}>
             <li className="m-2"><Link to={`/login`} className="btn btn-hot btn-block pl-4 pr-4">Login</Link></li>

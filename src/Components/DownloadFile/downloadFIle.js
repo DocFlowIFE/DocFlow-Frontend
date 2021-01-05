@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { HiOutlineDocumentDownload } from "react-icons/hi";
 import './downloadFile.css';
 
 function DownloadFile(props) {
@@ -11,7 +12,7 @@ function DownloadFile(props) {
 
     return (
         <div className="text-main download" onClick={() => downloadFile(fileId)}>
-            <span className="d-block p-2">{fileName}</span>
+            <span className="d-block p-2"><HiOutlineDocumentDownload size="24"></HiOutlineDocumentDownload> {fileName}</span>
         </div>
     );
 }

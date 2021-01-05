@@ -1,11 +1,11 @@
 .download {
-    border: 1px solid rgba(0,0,0,0);
-    transition: transform .2s;
+    transition: 0.4s;
 }
   
 .download:hover {
     opacity: 1;
     color: white;
     background-color: #333;
+    margin-left: 1rem;
     cursor: pointer;
 }

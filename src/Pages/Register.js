@@ -47,18 +47,30 @@ function Register() {
 
     let confirmCode = (event) => {
         event.preventDefault();
-        var cognitoUser = new CognitoUser(userData);
-        cognitoUser.confirmRegistration(confirmationCode, true, (err, result) => {
-            if(err)
-            {
-                console.log(err);
-                setMessage("Invalid code.");
-            }
-            else
-            {
-                window.location = "/login";
-            }
-        });
+
+        if(!email || email === "")
+        {
+            setMessage("Please provide account emial.");
+        }
+        else if(!confirmationCode || confirmationCode === "")
+        {
+            setMessage("Please provide verification code.");
+        }
+        else
+        {
+            var cognitoUser = new CognitoUser(userData);
+            cognitoUser.confirmRegistration(confirmationCode, true, (err, result) => {
+                if(err)
+                {
+                    console.log(err);
+                    setMessage("Invalid code.");
+                }
+                else
+                {
+                    window.location = "/login";
+                }
+            });
+        }
     }
 
     let handleSetPassword = (pass) => {
@@ -81,8 +93,8 @@ function Register() {
                 <div className="col-md-8 col-lg-6 m-auto">
                     <div className="jumbotron">
                         <h2 className="text-center mb-3">Register</h2>
-                        <h5 className="font-weight-bold">Hello! Let's get started.</h5>
-                        <Form onSubmit={registerSubmit} hidden={waitForConfirmation}>
+                        <h5 className="font-weight-bold mb-3">Hello! Let's get started.</h5>
+                        <Form onSubmit={registerSubmit}>
                             <Form.Group controlId="formEmail">
                                 <Form.Label>Email address</Form.Label>
                                 <Form.Control type="email" onChange={e => setEmail(e.target.value)} placeholder="Enter email" />
@@ -91,15 +103,18 @@ function Register() {
                                 <Form.Label>Password</Form.Label>
                                 <Form.Control type="password" onChange={e => handleSetPassword(e.target.value)} placeholder="Password" />
                             </Form.Group>
-                            <Button className="btn btn-main btn-block p-2 mt-4 rounded-0" type="submit" disabled={waitForConfirmation}>
+                            <a className="link-minimalist" onClick={e => setWaitForConfirmation(true)} hidden={waitForConfirmation}>Verify account</a>
+                            <Button className="btn btn-main btn-block p-3 mt-4 rounded-0" type="submit" disabled={waitForConfirmation}>
                                 Register
                             </Button>
                         </Form>
-                        <Form onSubmit={confirmCode} hidden={!waitForConfirmation}>
+                        <hr hidden={!waitForConfirmation} />
+                        <Form className="pt-2" onSubmit={confirmCode} hidden={!waitForConfirmation}>
                             <Form.Group controlId="formCode">
                                 <Form.Label>Verification code</Form.Label>
                                 <Form.Control type="text" onChange={e => setConfirmationCode(e.target.value)} placeholder="Enter code" />
                             </Form.Group>
+                            <a className="link-minimalist" onClick={e => setWaitForConfirmation(false)}>Close</a>
                             <Button className="btn btn-main btn-block p-2 mt-4 rounded-0" type="submit">
                                 Confirm
                             </Button>

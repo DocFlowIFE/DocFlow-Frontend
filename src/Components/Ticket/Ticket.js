@@ -54,7 +54,7 @@ function Ticket(props) {
         <Jumbotron className="row mb-5">
             <div className="col-md-8">
                 <h1>{document.title}</h1>
-                <ListGroup variant="flush">
+                <ListGroup className="font-normal" variant="flush">
                     <ListGroup.Item>
                         <span className="font-weight-bold">Date: </span>
                         {document.date}

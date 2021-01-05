@@ -17,7 +17,7 @@ function App() {
       <Account>
         <Router>
           <NavigationMenu/>
-          <div className="mt-lg-3 ml-lg-3 mr-lg-3">
+          <div className="">
             <Switch>
                 <Route exact path="/">
                     <Home />

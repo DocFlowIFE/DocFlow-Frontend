@@ -8,7 +8,7 @@ function FlowElement(props) {
 
     if (target.current === true) {
         content = <span>
-            <Badge pill variant="info">
+            <Badge className="p-2" pill variant="info">
                 {target.name}
             </Badge>
             <ImArrowRight2 className="m-1"/>

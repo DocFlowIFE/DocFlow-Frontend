@@ -44,7 +44,7 @@ function Request(props) {
         <Jumbotron className="row mb-5">
             <div className="col-md-8">
                 <h1>{request.title}</h1>
-                <ListGroup variant="flush">
+                <ListGroup className="font-normal" variant="flush">
                     <ListGroup.Item>
                         <span className="font-weight-bold">Description: </span>
                         {request.description}
@@ -92,7 +92,7 @@ function Request(props) {
                     <UploadFile id={props.id+"_UploadFile"} onFileSend={uploadAndAccept} btnText="Send and accept" />
                     <hr/>
                     <Button className="btn btn-yes btn-block" onClick={e => acceptWithoutDocument(e)}>
-                        <b>Accept without document</b>
+                        Accept without document
                     </Button>
                 </Modal.Body>
                 <Modal.Footer>

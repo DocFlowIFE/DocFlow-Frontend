@@ -1,25 +1,23 @@
 import React from "react";
 import Button from 'react-bootstrap/Button';
-import HomeImage from '../Assets/DocFlow-Home.jpg';
+import video from '../Assets/DocFlow_Video.mp4';
 import { Link } from "react-router-dom";
 
 function Home() {
     return (
-        <div className="container m-auto p-0">
-            <div className="row d-flex flex-row-reverse">
-                <div className="col-md-6 p-0">
-                    <div className="text-white p-5">
-                        <h1>Hello !!!</h1>
-                        <p className="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus finibus, leo ac cursus mattis, ligula ligula vestibulum nisi, in venenatis neque turpis a nulla. Curabitur elementum facilisis tortor ac efficitur. Nullam iaculis consectetur tellus, et faucibus mi convallis sed. Curabitur lectus nisi, auctor sit amet sem ac, convallis tincidunt arcu.
-                        </p>
-                        <p className="mt-5">
-                            <Link to={`/login`}>
-                                <Button className="pl-4 pr-4 btn-hot">Login</Button>
-                            </Link>
-                        </p>
-                    </div>
-                </div>
-                <img className="col-md-6 p-0" src={HomeImage} alt="Documents"></img>
+        <div className="showcase">
+            <video src={video} muted loop autoPlay></video>
+            <div className="overlay"></div>
+            <div className="overlay-content text-white m-3 p-5">
+                <h1 className="text-title">Hello !!!</h1>
+                <p className="font-big">
+                    DocFlow is a platform for handling documents delivery in your institution. <br/> We strive to provide an effortless and efficient system for files exchange and their tracking. <br/> Please log in to proceed to your assigned tickets or create a new one.
+                </p>
+                <p className="mt-5">
+                    <Link to={`/login`}>
+                        <Button className="pl-5 pr-5 pt-3 pb-3 btn-hot">Login</Button>
+                    </Link>
+                </p>
             </div>
         </div>
     );
