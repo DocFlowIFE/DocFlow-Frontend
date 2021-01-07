@@ -1,0 +1,16 @@
+.list_overlay
+{
+    position: absolute;
+    z-index: 20;
+}
+
+.list_overlay > .list-group-item:hover
+{
+    width: 100%;
+    cursor: pointer;
+    background-color: #ddd;
+}
+
+.show > input {
+    display: inherit !important;
+}

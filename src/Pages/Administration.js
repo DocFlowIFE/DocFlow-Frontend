@@ -1,8 +1,10 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { AccountContext } from "../Components/Authentication/Account";
+import CreateTemplateForm from "../Components/CreateTemplateForm/CreateTemplateForm";
 
 function Administration() {
     const { getSession } = useContext(AccountContext);
+
     useEffect(() => {
         getSession(true)
         .then(token => {
@@ -11,10 +13,11 @@ function Administration() {
         .catch(() => {
             window.location = "/login";
         });
-    }, []);
+    }, []); 
     
     return (
         <div className="container mb-5 mt-5">
+            <CreateTemplateForm></CreateTemplateForm>
         </div>
     );
 }
