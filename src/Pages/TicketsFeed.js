@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { AccountContext } from "../Components/Authentication/Account";
+import { APIContext } from "../Services/APIService";
 import Ticket from "../Components/Ticket/Ticket";
 
 function TicketsFeed() {
@@ -85,10 +86,19 @@ function TicketsFeed() {
     );
 
     const { getSession } = useContext(AccountContext);
+    const { getTickets } = useContext(APIContext);
+
+    let requestTickets = (token) => {
+        getTickets(token)
+            .then(data => console.log(data))
+            .catch(err => console.log(err));
+    }
+
     useEffect(() => {
         getSession()
         .then(token => {
-            console.log(token);
+                
+            requestTickets(token);
         })
         .catch(() => {
             window.location = "/login";

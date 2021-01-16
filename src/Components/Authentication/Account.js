@@ -18,7 +18,8 @@ const Account = props => {
                     if (err) {
                         reject();
                     } else {
-                        resolve(session);
+                        let token = session.idToken.jwtToken;
+                        resolve(token);
                     }
                 })
             } else {
