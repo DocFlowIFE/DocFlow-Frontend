@@ -1,43 +1,81 @@
-import React, { useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import ListGroup from 'react-bootstrap/ListGroup';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
+import { APIContext } from "../../Services/APIService";
+import { AccountContext } from "../Authentication/Account";
 import './createTemplateForm.css';
 
-function CreateTemplateForm() {
+function CreateTemplateForm(props) {
     const [title, setTitle] = useState(null);
-    const [showList, setShowList] = useState(false);
-    const [message, setMessage] = useState("");
+    const [description, setDescription] = useState(null);
     const [file, setFile] = useState(null);
+    const [message, setMessage] = useState("");
+    const [showList, setShowList] = useState(false);
     const [usersFilter, setUsersFilter] = useState("");
-    const [users, setUsers] = useState(
-        [
-            { email: "deanOffice@sampledomain.com" },
-            { email: "ife@sampledomain.com" },
-            { email: "ftims@sampledomain.com" },
-            { email: "weeia@sampledomain.com" },
-            { email: "binoz@sampledomain.com" },
-            { email: "budo@sampledomain.com" },
-        ]
-    );
+    const [allUsers, setAllUsers] = useState([]);
+    const [usersFlow, setUsersFlow] = useState([]);
 
-    let createTemplate = () => {
-        console.log("Create Template");
+    const { getUsers, createTemplate, uploadFile } = useContext(APIContext);
+    const { getSession } = useContext(AccountContext);
+
+    useEffect(() => {
+        getSession(true)
+            .then(token => {
+                getUsers(token)
+                    .then(data => setAllUsers(data))
+                    .catch(err => { console.log(err); setMessage("Somthing went wrong, service unavailable."); });
+            })
+            .catch(() => {
+                window.location = "/login";
+        });
+    }, []);
+
+    let submitTemplate = () => {
+        let template = 
+        {
+            title: title,
+            description: description,
+            users: usersFlow
+        }
+
+        if(!file)
+        {
+            setMessage("Please upload file.");
+            return;
+        } else if(!title || !description || usersFlow.length <= 0)
+        {
+            setMessage("Please make sure that all fields are filled in.");
+            return;
+        }
+
+        createTemplate(props.token, template)
+            .then(data => {
+                console.log(data);
+                uploadFile(data.fileUploadLink.url, file, data.fileUploadLink.fields);
+            })
+            .catch(err => console.log(err));
     };
 
-    let addFileToTemplate = () => {
-        console.log("File added");
+    let addFileToTemplate = (input) => {
+        setFile(input.files[0]);
     };
 
     let addToFlow = (email) => {
-        console.log(email);
+        usersFlow.push(email);
     };
 
+    let deleteFromFlow = (e, index) => {
+        e.preventDefault();
+        // this is fucking horrible
+        let newUsersFlow = usersFlow.slice(0, index).concat(usersFlow.slice(index + 1, usersFlow.length));
+        setUsersFlow(newUsersFlow);
+    }
 
     return (
         <div className="jumbotron">
-            <Form onSubmit={createTemplate}>
+            <Form>
                 <h2 className="pb-2">Crate new template</h2>
                 <Form.Group controlId="formTicketTitle">
                     <Form.Label>Title</Form.Label>
@@ -45,24 +83,32 @@ function CreateTemplateForm() {
                 </Form.Group>
                 <Form.Group controlId="formTicketDescription">
                     <Form.Label>Description</Form.Label>
-                    <Form.Control as="textarea" onChange={e => setTitle(e.target.value)} rows={4} placeholder="Enter description"/>
+                    <Form.Control as="textarea" onChange={e => setDescription(e.target.value)} rows={4} placeholder="Enter description"/>
                 </Form.Group>
                 <Form.Group className="mb-4" controlId="formTicketDescription">
                     <Form.Label>Flow</Form.Label>
                     <Form.Control type="email" onChange={e => setUsersFilter(e.target.value)} onFocus={() => setShowList(true)} onBlur={() => setShowList(false)} placeholder="Find user by email" />
                     <ListGroup className="list_overlay" hidden={!showList}>
-                        {users
-                            .filter((user) => {return user.email.startsWith(usersFilter);})
+                        {allUsers
+                            .filter((user) => {return user.startsWith(usersFilter);})
                             .slice(0, 3)
                             .map((user, index) => {
-                                return <ListGroup.Item key={"email_"+index} onMouseDown={(e) => addToFlow(e.target.innerText)}>{user.email}</ListGroup.Item>
+                                return <ListGroup.Item key={"email_"+index} onMouseDown={(e) => addToFlow(e.target.innerText)}>{user}</ListGroup.Item>
                             })}
                     </ListGroup>
+                    <div className="mt-3">
+                        {usersFlow
+                            .map((user, index) => {
+                                return <div key={"flow_"+index} className="flow-list-element">
+                                    <span>{user} </span><Button onClick={e => deleteFromFlow(e, index)} className="btn btn-no-text">X</Button>
+                                </div>
+                        })}
+                    </div>
                 </Form.Group>
                 <Form.Group>
-                    <Form.File className="show" label="Add base document" onChange={addFileToTemplate} id="formTicketBaseDocument" />
+                    <Form.File className="show" label="Add base document" onChange={e => addFileToTemplate(e.target)} id="formTicketBaseDocument" />
                 </Form.Group>
-                <Button className="col-md-6 m-auto btn btn-hot btn-block p-3 rounded-0" type="submit">
+                <Button className="col-md-6 m-auto btn btn-hot btn-block p-3 rounded-0" onClick={submitTemplate}>
                     Create
                 </Button>
             </Form>

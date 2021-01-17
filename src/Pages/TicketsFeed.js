@@ -29,58 +29,6 @@ function TicketsFeed() {
                         fileId: 54394324
                     }
                 ]
-            },
-            {
-                ticketId: 90009431,
-                title: "Important document",
-                date: "18.10.2020",
-                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                comment: "",
-                status: "Pending",
-                flow: [
-                    {
-                        name: "You",
-                        current: false
-                    },
-                    {
-                        name: "Dean's office",
-                        current: true
-                    }
-                ],
-                files: [
-                    {
-                        fileName: "importantFile.docx",
-                    fileId: 3231141
-                    }
-                ]
-            },
-            {
-                ticketId: 13749221,
-                title: "Just document",
-                date: "19.10.2020",
-                description: "Lorem ipsum dolor sit amet.",
-                comment: "Something is wrong with document ... ",
-                status: "Rejected",
-                flow: [
-                    {
-                        name: "You",
-                        current: true
-                    },
-                    {
-                        name: "Dean's office",
-                        current: false
-                    }
-                ],
-                files: [
-                    {
-                        fileName: "justFile.docx",
-                        fileId: 3213119
-                    },
-                    {
-                        fileName: "response.docx",
-                        fileId: 7865431
-                    }
-                ]
             }
         ]
     );
@@ -90,14 +38,13 @@ function TicketsFeed() {
 
     let requestTickets = (token) => {
         getTickets(token)
-            .then(data => console.log(data))
+            .then(data => { console.log(data); setDocuments(data); })
             .catch(err => console.log(err));
     }
 
     useEffect(() => {
         getSession()
         .then(token => {
-                
             requestTickets(token);
         })
         .catch(() => {

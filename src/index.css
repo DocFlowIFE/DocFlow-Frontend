@@ -122,6 +122,18 @@ a:hover {
   color: #fff !important;
 }
 
+.btn-no-text {
+  color: #f3695f !important;
+  background-color: transparent !important;
+  padding: 0px 5px 5px 5px;
+}
+
+.btn-no-text:hover, .btn-no-text:active, .btn-no-text:focus, .btn-no-text:visited {
+  cursor: pointer;
+  background-color: transparent !important;
+  color: #d6362a !important;
+}
+
 .btn-yes {
   background-color: #a0e9bb !important;
   color: #222 !important;

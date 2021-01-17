@@ -14,3 +14,7 @@
 .show > input {
     display: inherit !important;
 }
+
+.flow-list-element {
+    padding-left: 1em;
+}

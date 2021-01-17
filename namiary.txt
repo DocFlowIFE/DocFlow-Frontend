@@ -1,6 +1,6 @@
-AdminAPIEndpoint	https://ybhrgyf0lb.execute-api.us-east-1.amazonaws.com/prod/
-AdminClientId	2jiutd84t06jv2v7trqureh6hf
-AdminPoolId	us-east-1_eOTU2WB9L
-PublicAPIEndpoint	https://28bc3rji7k.execute-api.us-east-1.amazonaws.com/prod/
-UserClientId	70b4ivddaped43kolp54ipno9i
-UserPoolId	us-east-1_lHOLkJAd9
+AdminAPIEndpoint	https://dq1mh76b8h.execute-api.us-east-1.amazonaws.com/prod/
+AdminClientId	5jaofo35nn8colstv4ol5jbg0g
+AdminPoolId	us-east-1_gLVHRdHaj
+PublicAPIEndpoint		https://oc23wm8556.execute-api.us-east-1.amazonaws.com/prod/
+UserClientId		3sj7psi8v4mh34gu0ido12gb7u
+UserPoolId		us-east-1_L8CsQCf4O

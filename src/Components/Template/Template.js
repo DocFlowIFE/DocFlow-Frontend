@@ -1,16 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Button, Jumbotron } from "react-bootstrap";
 import ListGroup from 'react-bootstrap/ListGroup';
 import { BsFileEarmarkCheck } from "react-icons/bs";
 import FlowElement from '../FlowElement/FlowElement';
+import { APIContext } from "../../Services/APIService";
+import { ImArrowRight2 } from "react-icons/im";
 import { AiOutlineSend } from 'react-icons/ai';
 
 function Template(props) {
     let [template, setTemplate] = useState(props.template);
 
+    const { createTicket } = useContext(APIContext);
+
     let createTemplate = (event) => {
         event.preventDefault();
-        console.log(template.templateId);
+        createTicket(props.token, template.id)
+            .then(result => console.log(result))
+            .catch(err => console.log(err));
     }
 
     return (
@@ -24,10 +30,12 @@ function Template(props) {
                     </ListGroup.Item>
                     <ListGroup.Item>
                         <span className="font-weight-bold">Flow: </span>
+                        <ImArrowRight2 className="m-1"/>
                         {
-                            template.flow.map((target, id) =>
-                                <FlowElement key={id} target={target}/>
-                            )
+                            template.users.map((user, id) => {
+                                let target = { name: user, current: false};
+                                return <FlowElement key={id} target={target}/>
+                            })
                         }
                         <BsFileEarmarkCheck />
                     </ListGroup.Item>

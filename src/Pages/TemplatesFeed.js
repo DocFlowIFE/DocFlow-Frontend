@@ -1,56 +1,26 @@
 import React, { useState, useContext, useEffect } from "react";
 import { AccountContext } from "../Components/Authentication/Account";
+import { APIContext } from "../Services/APIService";
 import Template from "../Components/Template/Template";
 
 function TemplateFeed() {
-    let [templates, setTemplates] = useState(
-        [
-            {
-                templateId: 78789821,
-                title: "Example document",
-                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris non pharetra augue. Aenean nec ipsum vulputate libero condimentum eleifend ac ut lacus. Etiam gravida tincidunt fringilla. Donec viverra scelerisque est non laoreet.",
-                flow: [
-                    {
-                        name: "You",
-                        current: true
-                    },
-                    {
-                        name: "Dean's office",
-                        current: false
-                    }
-                ],
-                baseDocument: {
-                    fileName: "exampleFile.docx",
-                    fileId: 54394324
-                }
-            },
-            {
-                templateId: 90009431,
-                title: "Important document",
-                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                flow: [
-                    {
-                        name: "You",
-                        current: true
-                    },
-                    {
-                        name: "Dean's office",
-                        current: false
-                    }
-                ],
-                baseDocument: {
-                    fileName: "importantFile.docx",
-                    fileId: 3231141
-                }
-            }
-        ]
-    );
+    let [templates, setTemplates] = useState([]);
+    let [token, setToken] = useState(null);
 
     const { getSession } = useContext(AccountContext);
+    const { getTemplates } = useContext(APIContext);
+
+    let requestTemlates = (token) => {
+        getTemplates(token)
+            .then(data => { setTemplates(data); })
+            .catch(err => console.log(err));
+    }
+
     useEffect(() => {
         getSession()
         .then(token => {
-            console.log(token);
+            setToken(token);
+            requestTemlates(token);
         })
         .catch(() => {
             window.location = "/login";
@@ -60,7 +30,7 @@ function TemplateFeed() {
     return (
         <div className="container mt-5">
             {templates.map((template, index) => (
-                <Template template={template} key={index} id={index} />
+                <Template template={template} key={index} id={index} token={token}/>
             ))};
         </div>
     );
