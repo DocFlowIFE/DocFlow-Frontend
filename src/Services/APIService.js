@@ -8,7 +8,6 @@ const API = props => {
     const adminAPI = 'https://dq1mh76b8h.execute-api.us-east-1.amazonaws.com/prod/';
 
     let getConfig = (token) => { return { headers: {Authorization: `Bearer ${token}`} }};
-    let getFileConfig = (token) => { return { headers: {Authorization: `Bearer ${token}`} }};
 
     let getTickets = async (token) => {
         return await new Promise((resolve, reject) => {

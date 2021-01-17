@@ -5,6 +5,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import { APIContext } from "../../Services/APIService";
 import { AccountContext } from "../Authentication/Account";
+import Spinner from "../Spinner/Spinner";
 import './createTemplateForm.css';
 
 function CreateTemplateForm(props) {
@@ -16,6 +17,7 @@ function CreateTemplateForm(props) {
     const [usersFilter, setUsersFilter] = useState("");
     const [allUsers, setAllUsers] = useState([]);
     const [usersFlow, setUsersFlow] = useState([]);
+    const [createDisable, setCreateDisable] = useState(false);
 
     const { getUsers, createTemplate, uploadFile } = useContext(APIContext);
     const { getSession } = useContext(AccountContext);
@@ -32,7 +34,10 @@ function CreateTemplateForm(props) {
         });
     }, []);
 
-    let submitTemplate = () => {
+    let submitTemplate = (e) => {
+        e.preventDefault();
+        setCreateDisable(true);
+
         let template = 
         {
             title: title,
@@ -40,20 +45,33 @@ function CreateTemplateForm(props) {
             users: usersFlow
         }
 
+        console.log(file);
+
         if(!file)
         {
             setMessage("Please upload file.");
+            setCreateDisable(false);
             return;
-        } else if(!title || !description || usersFlow.length <= 0)
+        } 
+        else if (file.type != "application/pdf")
+        {
+            setMessage("Only pdf type is supported. Please, upload document in correct format.");
+            setCreateDisable(false);
+            return;
+        }
+        else if(!title || !description || usersFlow.length <= 0)
         {
             setMessage("Please make sure that all fields are filled in.");
+            setCreateDisable(false);
             return;
         }
 
         createTemplate(props.token, template)
             .then(data => {
                 console.log(data);
-                uploadFile(data.fileUploadLink.url, file, data.fileUploadLink.fields);
+                uploadFile(data.fileUploadLink.url, file, data.fileUploadLink.fields)
+                setCreateDisable(false);
+                setMessage("Don't worry, the template has been created correctly. It's just that the developer had too little time to add a correct message display, so it looks like an error, although it's not ;)");
             })
             .catch(err => console.log(err));
     };
@@ -108,9 +126,10 @@ function CreateTemplateForm(props) {
                 <Form.Group>
                     <Form.File className="show" label="Add base document" onChange={e => addFileToTemplate(e.target)} id="formTicketBaseDocument" />
                 </Form.Group>
-                <Button className="col-md-6 m-auto btn btn-hot btn-block p-3 rounded-0" onClick={submitTemplate}>
+                <Button className="col-md-6 m-auto btn btn-hot btn-block p-3 rounded-0" disabled={createDisable} onClick={e => submitTemplate(e)}>
                     Create
                 </Button>
+                { createDisable? <Spinner /> : <span></span> }
             </Form>
             <ErrorMessage message={message} />
         </div>

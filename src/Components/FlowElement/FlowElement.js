@@ -1,22 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import Badge from 'react-bootstrap/Badge';
 import { ImArrowRight2 } from "react-icons/im";
 
 function FlowElement(props) {
-    let [target, setTarget] = useState(props.target);
     let content = null;
 
-    if (target.current === true) {
+    if (props.current === true) {
         content = <span>
             <Badge className="p-2" pill variant="info">
-                {target.name}
+                {props.user}
             </Badge>
             <ImArrowRight2 className="m-1"/>
         </span>;
     }
     else {
         content = <span>
-            {target.name}
+            {props.user}
             <ImArrowRight2 className="m-1"/>
         </span>;
     }

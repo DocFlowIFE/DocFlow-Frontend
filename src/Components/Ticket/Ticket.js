@@ -18,11 +18,11 @@ function Ticket(props) {
     let getStatusBox = (document) => {
         let variant = null;
         switch(document.status){
-            case 'Waiting': variant = 'info'; break;
-            case 'Pending': variant = 'warning'; break;
-            case 'Rejected': variant = 'danger'; break;
-            case 'Accepted': variant = 'success'; break;
-            case 'Closed': variant = 'secondary'; break;
+            case 'waiting': variant = 'info'; break;
+            case 'pending': variant = 'warning'; break;
+            case 'rejected': variant = 'danger'; break;
+            case 'accepted': variant = 'success'; break;
+            case 'closed': variant = 'secondary'; break;
             default: variant = 'secondary';
         }
         return (
@@ -66,8 +66,10 @@ function Ticket(props) {
                     <ListGroup.Item>
                         <span className="font-weight-bold">Flow: </span>
                         {
-                            document.flow.map((target, id) =>
-                                <FlowElement key={id} target={target}/>
+                            document.flow.map((user, id) =>
+                                document.currentFlowId === id
+                                ? <FlowElement key={id} user={user} current={true}/>
+                                : <FlowElement key={id} user={user} current={false}/>
                             )
                         }
                         <BsFileEarmarkCheck />

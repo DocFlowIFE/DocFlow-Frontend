@@ -6,16 +6,18 @@ import FlowElement from '../FlowElement/FlowElement';
 import { APIContext } from "../../Services/APIService";
 import { ImArrowRight2 } from "react-icons/im";
 import { AiOutlineSend } from 'react-icons/ai';
+import Spinner from "../Spinner/Spinner";
 
 function Template(props) {
     let [template, setTemplate] = useState(props.template);
+    let [exchanged, setExchanged] = useState(false);
 
     const { createTicket } = useContext(APIContext);
 
-    let createTemplate = (event) => {
+    let exchangeDocument = (event) => {
         event.preventDefault();
         createTicket(props.token, template.id)
-            .then(result => console.log(result))
+            .then(result => { setExchanged(true); window.location = "/tickets"; })
             .catch(err => console.log(err));
     }
 
@@ -33,8 +35,7 @@ function Template(props) {
                         <ImArrowRight2 className="m-1"/>
                         {
                             template.users.map((user, id) => {
-                                let target = { name: user, current: false};
-                                return <FlowElement key={id} target={target}/>
+                                return <FlowElement key={id} user={user} current={false}/>
                             })
                         }
                         <BsFileEarmarkCheck />
@@ -42,10 +43,10 @@ function Template(props) {
                 </ListGroup>
             </div>
             <div className="col-md-4 d-flex flex-column justify-content-center">
-                <Button className="btn btn-hot-bordered m-2 p-3 rounded" onClick={e => createTemplate(e)}>
-                    <AiOutlineSend size={30}/>
-                    <span className="d-block">Exchange document</span>
+                <Button className="btn btn-hot-bordered m-2 p-3 rounded" onClick={e => exchangeDocument(e)}>
+                    { exchanged? <Spinner /> : <span> <AiOutlineSend size={30}/> <span className="d-block">Exchange document</span> </span> }
                 </Button>
+                
             </div>
         </Jumbotron>
     );
