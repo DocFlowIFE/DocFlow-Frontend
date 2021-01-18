@@ -12,14 +12,14 @@ import { AiOutlineSend } from 'react-icons/ai';
 import Spinner from "../Spinner/Spinner";
 
 function Template(props) {
-    let [template, setTemplate] = useState(props.template);
+    const [template, setTemplate] = useState(props.template);
     const [message, setMessage] = useState("");
     const [file, setFile] = useState(null);
     const [showModal, setShowModal] = useState(false);
-    let [exchanged, setExchanged] = useState(false);
+    const [exchanged, setExchanged] = useState(false);
     const [sendDisable, setSendDisable] = useState(true);
 
-    const { createTicket, uploadFile, downloadFile } = useContext(APIContext);
+    const { createTicket, uploadFile } = useContext(APIContext);
 
     let closeModal = () => {
         setShowModal(false);
@@ -49,6 +49,7 @@ function Template(props) {
     }
 
     let addFile = (input) => {
+        setSendDisable(true);
         if(!input.files[0])
         {
             setMessage("Please upload file.");
@@ -85,7 +86,7 @@ function Template(props) {
                     </ListGroup.Item>
                     <ListGroup.Item>
                         <span className="font-weight-bold">Document to fill: </span>
-                        <a href={template.fileLink}>Download</a>
+                        <a href={template.fileLink}>{template.filename}</a>
                     </ListGroup.Item>
                 </ListGroup>
             </div>

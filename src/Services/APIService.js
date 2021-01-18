@@ -17,10 +17,39 @@ const API = props => {
         });
     }
 
+    let getRequests = async (token) => {
+        return await new Promise((resolve, reject) => {
+            axios.get(adminAPI + 'tickets', getConfig(token))
+                .then(response => { resolve(response.data); })
+                .catch(error => { reject(error); });
+        });
+    }
+
     let getTemplates = async (token) => {
         return await new Promise((resolve, reject) => {
             axios.get(userAPI + 'ticketTemplates', getConfig(token))
-                .then(response => { console.log(response); resolve(response.data); })
+                .then(response => { resolve(response.data); })
+                .catch(error => { reject(error); });
+        });
+    }
+
+    let getAdminTemplates = async (token) => {
+        return await new Promise((resolve, reject) => {
+            axios.get(adminAPI + 'ticketTemplates', getConfig(token))
+                .then(response => { resolve(response.data); })
+                .catch(error => { reject(error); });
+        });
+    }
+
+    let patchTicket = async (token, ticket, filename) => {
+        return await new Promise((resolve, reject) => {
+            let body = {
+                status: ticket.status,
+                filename: filename,
+                comment: ticket.comment
+            }
+            axios.patch(adminAPI + 'tickets/' + ticket.ticketId, body, getConfig(token))
+                .then(response => { resolve(response.data); })
                 .catch(error => { reject(error); });
         });
     }
@@ -70,7 +99,7 @@ const API = props => {
     }
 
     return (
-        <APIContext.Provider value={{getTickets, getTemplates, createTemplate, getUsers, uploadFile, createTicket }}>
+        <APIContext.Provider value={{getTickets, getTemplates, createTemplate, getUsers, uploadFile, createTicket, getRequests, getAdminTemplates, patchTicket }}>
             {props.children}
         </APIContext.Provider>
     );

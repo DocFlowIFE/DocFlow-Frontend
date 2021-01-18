@@ -18,11 +18,11 @@ function TicketsFeed() {
     let requestTickets = (token) => {
         // if you need to read this, I'm sorry
         getTickets(token)
-            .then(tickets => { 
-                //console.log(tickets);
+            .then(tickets => {
+                console.log(tickets);
                 getTemplates(token)
                     .then(templates => {
-                        //console.log(templates);
+                        console.log(templates);
                         var resultDocuments = [];
                         tickets.map((ticket) => {
                             let template = templates.filter(template => template.id === ticket.ticketTemplateId)[0];
@@ -34,24 +34,24 @@ function TicketsFeed() {
                                 description: template.description,
                                 flow: template.users,
                                 status: ticket.status,
-                                currentFlowId: ticket.currentUserId,
+                                currentUser: ticket.CurrentUserEmail? ticket.CurrentUserEmail[0] : "",
                                 files: []
                             }
                             doc.files.push(
                                 {
                                     fileLink: template.fileLink,
-                                    filename: "Base file"
+                                    filename: template.filename
                                 }
                             );
                             doc.files.push(
                                 {
                                     fileLink: ticket.fileLink,
-                                    filename: "File"
+                                    filename: ticket.filename
                                 }
                             );
                             resultDocuments.push(doc);
                         });
-                        //console.log(resultDocuments);
+                        console.log(resultDocuments);
                         setDocuments({
                             loading: false,
                             data: resultDocuments,

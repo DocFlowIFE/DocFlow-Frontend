@@ -9,11 +9,6 @@ import DownloadFile from "../DownloadFile/DownloadFile";
 function Ticket(props) {
     let [document, setDocument] = useState(props.document);
 
-    let sendFile = (event, file) => {
-        event.preventDefault();
-        console.log(file);
-    }
-
     let getStatusBox = (document) => {
         let variant = null;
         switch(document.status){
@@ -32,7 +27,7 @@ function Ticket(props) {
     }
 
     let getCommentBox = (document) => {
-        if(document.status === "Rejected" || document.status === "Accepted")
+        if(document.status === "rejected")
         {
             return (
             <ListGroup.Item>
@@ -59,7 +54,7 @@ function Ticket(props) {
                         <span className="font-weight-bold">Flow: </span>
                         {
                             document.flow.map((user, id) =>
-                                document.currentFlowId === id
+                                document.CurrentUserEmail == user
                                 ? <FlowElement key={id} user={user} current={true}/>
                                 : <FlowElement key={id} user={user} current={false}/>
                             )
