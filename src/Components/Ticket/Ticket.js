@@ -3,7 +3,6 @@ import { Jumbotron } from "react-bootstrap";
 import { BsFileEarmarkCheck } from "react-icons/bs";
 import ListGroup from 'react-bootstrap/ListGroup';
 import Alert from 'react-bootstrap/Alert';
-import UploadFile from "../UploadFile/UploadFile";
 import FlowElement from '../FlowElement/FlowElement';
 import DownloadFile from "../DownloadFile/DownloadFile";
 
@@ -30,13 +29,6 @@ function Ticket(props) {
                 {document.status}
             </Alert>
         )
-    }
-
-    let getUploadFileComponent = (document) => {
-        if(document.status !== 'Pending' && document.status !== 'Closed')
-        {
-            return <UploadFile id={props.id+"_UploadFile"} onFileSend={sendFile} />
-        }
     }
 
     let getCommentBox = (document) => {
@@ -82,10 +74,9 @@ function Ticket(props) {
                 <div>
                     <h4>Files exchanged</h4>
                     {document.files.map((file, index) => (
-                        <DownloadFile key={props.id+"_DownloadFile_"+index} fileId={file.fileId} fileName={file.fileName} />
+                        <DownloadFile key={props.id+"_DownloadFile_"+index} fileLink={file.fileLink} filename={file.filename} />
                     ))}
                 </div>
-                {getUploadFileComponent(document)}
             </div>
         </Jumbotron>
     );

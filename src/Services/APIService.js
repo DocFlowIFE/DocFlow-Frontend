@@ -20,7 +20,7 @@ const API = props => {
     let getTemplates = async (token) => {
         return await new Promise((resolve, reject) => {
             axios.get(userAPI + 'ticketTemplates', getConfig(token))
-                .then(response => { resolve(response.data); })
+                .then(response => { console.log(response); resolve(response.data); })
                 .catch(error => { reject(error); });
         });
     }
@@ -42,9 +42,9 @@ const API = props => {
         });
     }
 
-    let createTicket = async (token, templateId) => {
+    let createTicket = async (token, templateId, filename) => {
         return await new Promise((resolve, reject) => {
-            const body = { ticketTemplateId: templateId, comment: "" };
+            const body = { ticketTemplateId: templateId, filename: filename, comment: "" };
             axios.post(userAPI + 'tickets', body, getConfig(token))
                 .then(response => { resolve(response.data); })
                 .catch(error => { reject(error); });
@@ -70,7 +70,7 @@ const API = props => {
     }
 
     return (
-        <APIContext.Provider value={{getTickets, getTemplates, createTemplate, getUsers, uploadFile, createTicket}}>
+        <APIContext.Provider value={{getTickets, getTemplates, createTemplate, getUsers, uploadFile, createTicket }}>
             {props.children}
         </APIContext.Provider>
     );

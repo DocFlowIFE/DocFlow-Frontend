@@ -19,10 +19,10 @@ function TicketsFeed() {
         // if you need to read this, I'm sorry
         getTickets(token)
             .then(tickets => { 
-                console.log(tickets);
+                //console.log(tickets);
                 getTemplates(token)
                     .then(templates => {
-                        console.log(templates);
+                        //console.log(templates);
                         var resultDocuments = [];
                         tickets.map((ticket) => {
                             let template = templates.filter(template => template.id === ticket.ticketTemplateId)[0];
@@ -37,9 +37,21 @@ function TicketsFeed() {
                                 currentFlowId: ticket.currentUserId,
                                 files: []
                             }
+                            doc.files.push(
+                                {
+                                    fileLink: template.fileLink,
+                                    filename: "Base file"
+                                }
+                            );
+                            doc.files.push(
+                                {
+                                    fileLink: ticket.fileLink,
+                                    filename: "File"
+                                }
+                            );
                             resultDocuments.push(doc);
                         });
-                        console.log(resultDocuments);
+                        //console.log(resultDocuments);
                         setDocuments({
                             loading: false,
                             data: resultDocuments,

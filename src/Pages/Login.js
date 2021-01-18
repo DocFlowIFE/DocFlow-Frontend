@@ -30,6 +30,7 @@ function Login() {
                 }
             })
             .catch(err => {
+                setLoginDisable(false);
                 setMessage(err);
             });
     }

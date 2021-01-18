@@ -38,15 +38,6 @@ function CreateTemplateForm(props) {
         e.preventDefault();
         setCreateDisable(true);
 
-        let template = 
-        {
-            title: title,
-            description: description,
-            users: usersFlow
-        }
-
-        console.log(file);
-
         if(!file)
         {
             setMessage("Please upload file.");
@@ -64,6 +55,14 @@ function CreateTemplateForm(props) {
             setMessage("Please make sure that all fields are filled in.");
             setCreateDisable(false);
             return;
+        }
+
+        let template = 
+        {
+            title: title,
+            description: description,
+            users: usersFlow,
+            filename: file.name
         }
 
         createTemplate(props.token, template)
