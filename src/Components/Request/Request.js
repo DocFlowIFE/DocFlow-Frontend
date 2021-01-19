@@ -41,7 +41,7 @@ function Request(props) {
         {
             setMessage("Please upload file.");
         } 
-        else if (input.files[0].type != "application/pdf")
+        else if (input.files[0].type !== "application/pdf")
         {
             setMessage("Only pdf type is supported. Please, upload document in correct format.");
         }else
@@ -65,6 +65,7 @@ function Request(props) {
             .then(res => {
                 console.log(res);
                 closeModals();
+                window.location = "/requests";
             })
             .catch(err => {
                 console.log(err);
@@ -87,8 +88,8 @@ function Request(props) {
             .then(res => {
                 console.log(res);
                 uploadFile(res.fileLink.url, file, res.fileLink.fields)
-                    .then(data => closeModals())
-                    .catch(err => closeModals());
+                    .then(data => { closeModals(); window.location = "/requests"; })
+                    .catch(err => { closeModals(); window.location = "/requests"; });
             })
             .catch(err => {
                 console.log(err);
@@ -110,13 +111,17 @@ function Request(props) {
         patchTicket(props.token, request, oldFilename)
             .then(res => {
                 console.log(res);
+                setResponding(false);
+                setSendDisable(false);
                 closeModals();
+                window.location = "/requests";
             })
             .catch(err => {
                 console.log(err);
                 setResponding(false);
                 setSendDisable(false);
-                setMessage("Sorry, somthing went wrong.");
+                closeModals();
+                window.location = "/requests";
             });
     }
 
@@ -133,7 +138,7 @@ function Request(props) {
                         <span className="font-weight-bold">Flow: </span>
                         {
                             request.flow.map((user, id) =>
-                                document.CurrentUserEmail == user
+                                request.currentUser === user
                                 ? <FlowElement key={id} user={user} current={true}/>
                                 : <FlowElement key={id} user={user} current={false}/>
                             )

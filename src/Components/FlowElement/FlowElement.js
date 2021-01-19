@@ -4,7 +4,7 @@ import { ImArrowRight2 } from "react-icons/im";
 
 function FlowElement(props) {
     let content = null;
-
+    
     if (props.current === true) {
         content = <span>
             <Badge className="p-2" pill variant="info">
@@ -15,7 +15,7 @@ function FlowElement(props) {
     }
     else {
         content = <span>
-            {props.user}
+                {props.user}
             <ImArrowRight2 className="m-1"/>
         </span>;
     }

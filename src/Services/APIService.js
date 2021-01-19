@@ -4,8 +4,8 @@ import axios from 'axios';
 const APIContext = createContext();
 
 const API = props => {
-    const userAPI = 'https://oc23wm8556.execute-api.us-east-1.amazonaws.com/prod/';
-    const adminAPI = 'https://dq1mh76b8h.execute-api.us-east-1.amazonaws.com/prod/';
+    const userAPI = 'https://a5fnoisn7g.execute-api.us-east-1.amazonaws.com/prod/';
+    const adminAPI = 'https://cxu9hjp5p9.execute-api.us-east-1.amazonaws.com/prod/';
 
     let getConfig = (token) => { return { headers: {Authorization: `Bearer ${token}`} }};
 

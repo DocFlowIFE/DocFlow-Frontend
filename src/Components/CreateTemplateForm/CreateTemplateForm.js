@@ -44,7 +44,7 @@ function CreateTemplateForm(props) {
             setCreateDisable(false);
             return;
         } 
-        else if (file.type != "application/pdf")
+        else if (file.type !== "application/pdf")
         {
             setMessage("Only pdf type is supported. Please, upload document in correct format.");
             setCreateDisable(false);

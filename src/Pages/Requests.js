@@ -109,7 +109,7 @@ function Requests() {
         content =
             <div className="container mt-5">
                 {requests.data.map((req, index) => (
-                    <Request request={req} key={index} id={index} token={token} />
+                    <Request request={req} key={index} id={index} token={token}/>
                 ))};
             </div>
     }

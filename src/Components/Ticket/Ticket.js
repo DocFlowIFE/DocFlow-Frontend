@@ -54,7 +54,7 @@ function Ticket(props) {
                         <span className="font-weight-bold">Flow: </span>
                         {
                             document.flow.map((user, id) =>
-                                document.CurrentUserEmail == user
+                                document.currentUser === user
                                 ? <FlowElement key={id} user={user} current={true}/>
                                 : <FlowElement key={id} user={user} current={false}/>
                             )

@@ -54,7 +54,7 @@ function Template(props) {
         {
             setMessage("Please upload file.");
         } 
-        else if (input.files[0].type != "application/pdf")
+        else if (input.files[0].type !== "application/pdf")
         {
             setMessage("Only pdf type is supported. Please, upload document in correct format.");
         }else
