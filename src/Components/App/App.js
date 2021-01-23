@@ -2,38 +2,52 @@ import "./app.css";
 import NavigationMenu from '../Navigation/NavigationMenu';
 import Footer from '../Footer/Footer';
 import Home from '../../Pages/Home';
-import Feed from '../../Pages/Feed';
+import TicketsFeed from '../../Pages/TicketsFeed';
+import TemplatesFeed from '../../Pages/TemplatesFeed';
 import Login from '../../Pages/Login';
 import Register from '../../Pages/Register';
-import AnimalFacts from '../../Pages/AnimalFacts';
+import Administration from '../../Pages/Administration';
+import Requests from '../../Pages/Requests';
+import { Account } from '../Authentication/Account';
+import { API } from '../../Services/APIService';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
   return (
     <div className="main-container position-relative pb-5">
-      <Router>
-        <NavigationMenu/>
-        <div className="mt-lg-3 ml-lg-3 mr-lg-3">
-          <Switch>
-              <Route exact path="/">
-                  <Home />
-              </Route>
-              <Route path="/facts">
-                  <AnimalFacts />
-              </Route>
-              <Route path="/feed">
-                  <Feed />
-              </Route>
-              <Route path="/login">
-                  <Login />
-              </Route>
-              <Route path="/register">
-                  <Register />
-              </Route>
-          </Switch>
-        </div>
-        <Footer/>
-      </Router>
+      <Account>
+        <API>
+          <Router>
+            <NavigationMenu/>
+            <div className="">
+              <Switch>
+                  <Route exact path="/">
+                      <Home />
+                  </Route>
+                  <Route path="/templates">
+                      <TemplatesFeed />
+                  </Route>
+                  <Route path="/tickets">
+                      <TicketsFeed />
+                  </Route>
+                  <Route path="/login">
+                      <Login />
+                  </Route>
+                  <Route path="/register">
+                      <Register />
+                  </Route>
+                  <Route path="/administration">
+                      <Administration />
+                  </Route>
+                  <Route path="/requests">
+                      <Requests />
+                  </Route>
+              </Switch>
+            </div>
+            <Footer/>
+          </Router>
+        </API>
+      </Account>
     </div>
   );
 }

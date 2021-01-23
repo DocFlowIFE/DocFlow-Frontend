@@ -16,7 +16,7 @@ function UploadFile(props) {
         setFile(null);
     }
 
-    if(file == null)
+    if(file === null || file === "")
     {
         fileBox = 
             <div>
@@ -30,12 +30,12 @@ function UploadFile(props) {
         fileBox = 
             <div className="p-1">
                 <span className="font-small">{file}</span>
-                <TiDeleteOutline className="btn-no ml-2" onClick={() => clearFileInput()} size={20} />
+                <TiDeleteOutline className="btn-no-text ml-2" onClick={() => clearFileInput()} size={20} />
             </div>
     }
 
     return (
-        <Form className="text-center" onSubmit={ e => props.onFileSend(e, file) }>
+        <Form className="text-center mt-4" onSubmit={ e => props.onFileSend(e, file) }>
             <Form.Label htmlFor={fileInputId} className="d-block custom-file-upload">
                 <AiOutlineCloudUpload className="mr-1" size={50} />
                 <span className="d-block">Upload File</span>
@@ -44,8 +44,8 @@ function UploadFile(props) {
                 <Form.File id={fileInputId} onChange={(e) => {setFile(e.target.value)}}/>
             </Form.Group>
             {fileBox}
-            <Button className="btn btn-main btn-block mt-4" type="submit" disabled={file == null}>
-                Send
+            <Button className="btn btn-main btn-block mt-4" type="submit" disabled={file === null || file === ""}>
+                { props.btnText? props.btnText : "Send" }
             </Button>
         </Form>
     );
