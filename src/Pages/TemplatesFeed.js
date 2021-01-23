@@ -1,67 +1,79 @@
 import React, { useState, useContext, useEffect } from "react";
 import { AccountContext } from "../Components/Authentication/Account";
+import { APIContext } from "../Services/APIService";
 import Template from "../Components/Template/Template";
+import Spinner from "../Components/Spinner/Spinner";
+import Alert from 'react-bootstrap/Alert';
 
 function TemplateFeed() {
-    let [templates, setTemplates] = useState(
-        [
-            {
-                templateId: 78789821,
-                title: "Example document",
-                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris non pharetra augue. Aenean nec ipsum vulputate libero condimentum eleifend ac ut lacus. Etiam gravida tincidunt fringilla. Donec viverra scelerisque est non laoreet.",
-                flow: [
-                    {
-                        name: "You",
-                        current: true
-                    },
-                    {
-                        name: "Dean's office",
-                        current: false
-                    }
-                ],
-                baseDocument: {
-                    fileName: "exampleFile.docx",
-                    fileId: 54394324
-                }
-            },
-            {
-                templateId: 90009431,
-                title: "Important document",
-                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                flow: [
-                    {
-                        name: "You",
-                        current: true
-                    },
-                    {
-                        name: "Dean's office",
-                        current: false
-                    }
-                ],
-                baseDocument: {
-                    fileName: "importantFile.docx",
-                    fileId: 3231141
-                }
-            }
-        ]
-    );
+    let [templates, setTemplates] = useState({
+        loading: true,
+        data: null,
+        error: false
+    });
+    let [token, setToken] = useState(null);
 
     const { getSession } = useContext(AccountContext);
+    const { getTemplates } = useContext(APIContext);
+
+    let requestTemlates = (token) => {
+        getTemplates(token)
+            .then(templates => { 
+                setTemplates({
+                    loading: false,
+                    data: templates,
+                    error: true
+                });
+            })
+            .catch(err => {
+                console.log(err);
+                setTemplates({
+                    loading: false,
+                    data: null,
+                    error: true
+                })
+            });
+    }
+
     useEffect(() => {
         getSession()
         .then(token => {
-            console.log(token);
+            setToken(token);
+            requestTemlates(token);
         })
         .catch(() => {
             window.location = "/login";
         });
     }, []);
 
+    let content = null;
+
+    if (templates.loading) {
+        content = <Spinner/>
+    }
+
+    if (templates.error) {
+        content =
+            <Alert variant="danger">
+                <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+                <p>
+                    There was an error please refresh or try again later.
+                </p>
+            </Alert>
+    }
+
+    if (templates.data) {
+        content =
+            <div className="container mt-5">
+                {templates.data.map((template, index) => (
+                    <Template template={template} key={index} id={index} token={token}/>
+                ))};
+            </div>
+    }
+
     return (
-        <div className="container mt-5">
-            {templates.map((template, index) => (
-                <Template template={template} key={index} id={index} />
-            ))};
+        <div>
+            {content}
         </div>
     );
 }

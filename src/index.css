@@ -13,10 +13,31 @@ code {
 
 a:hover {
   text-decoration: none;
+  cursor: pointer;
+}
+
+.link-minimalist {
+  font-size: 0.95em;
+  color: #333333;
+  opacity: 0.7;
+  transition: 0.2s;
+}
+
+.link-minimalist:hover {
+  color: #333333;
+  opacity: 1;
 }
 
 .font-small {
-  font-size: 0.8rem;
+  font-size: 0.9em;
+}
+
+.font-normal {
+  font-size: 1em;
+}
+
+.font-big {
+  font-size: 1.3rem;
 }
 
 .jumbotron {
@@ -25,8 +46,22 @@ a:hover {
   margin-bottom: 0;
 }
 
+.text-title {
+  font-size: 5em;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1em;
+  text-transform: uppercase;
+}
+
 .text-main {
   color: #495867;
+}
+
+.text-nav {
+  color: #495867;
+  font-weight: 700;
+  letter-spacing: 0.8px;
 }
 
 .text-board {
@@ -35,6 +70,13 @@ a:hover {
 
 .text-hot {
   color: #F6B6EB;
+}
+
+.btn {
+  font-size: 1em;
+  letter-spacing: 1.5px;
+  font-weight: 600 !important;
+  text-transform: uppercase;
 }
 
 .btn-main {
@@ -78,6 +120,18 @@ a:hover {
   cursor: pointer;
   background-color: #f8584d !important;
   color: #fff !important;
+}
+
+.btn-no-text {
+  color: #f3695f !important;
+  background-color: transparent !important;
+  padding: 0px 5px 5px 5px;
+}
+
+.btn-no-text:hover, .btn-no-text:active, .btn-no-text:focus, .btn-no-text:visited {
+  cursor: pointer;
+  background-color: transparent !important;
+  color: #d6362a !important;
 }
 
 .btn-yes {
@@ -129,4 +183,44 @@ a:hover {
 
 .second {
   font-size: 0.9rem;
+}
+
+/* HOME PAGE */
+
+.showcase
+{
+  width: 100%;
+  height: 90vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #111;
+  z-index: 2;
+}
+
+.showcase video
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.8;
+}
+
+.overlay
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #666677;
+  mix-blend-mode: overlay;
+}
+
+.overlay-content
+{
+  z-index: 10;
 }

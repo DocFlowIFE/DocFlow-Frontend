@@ -1,95 +1,120 @@
 import React, { useState, useContext, useEffect } from "react";
 import { AccountContext } from "../Components/Authentication/Account";
+import { APIContext } from "../Services/APIService";
 import Ticket from "../Components/Ticket/Ticket";
+import Spinner from "../Components/Spinner/Spinner";
+import Alert from 'react-bootstrap/Alert';
 
 function TicketsFeed() {
-    let [documents, setDocuments] = useState(
-        [
-            {
-                ticketId: 68789821,
-                title: "Example document",
-                date: "15.10.2020",
-                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris non pharetra augue. Aenean nec ipsum vulputate libero condimentum eleifend ac ut lacus. Etiam gravida tincidunt fringilla. Donec viverra scelerisque est non laoreet.",
-                comment: "",
-                status: "Waiting",
-                flow: [
-                    {
-                        name: "You",
-                        current: true
-                    },
-                    {
-                        name: "Dean's office",
-                        current: false
-                    }
-                ],
-                baseDocument: {
-                    fileName: "exampleFile.docx",
-                    fileId: 54394324
-                }
-            },
-            {
-                ticketId: 90009431,
-                title: "Important document",
-                date: "18.10.2020",
-                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                comment: "",
-                status: "Pending",
-                flow: [
-                    {
-                        name: "You",
-                        current: false
-                    },
-                    {
-                        name: "Dean's office",
-                        current: true
-                    }
-                ],
-                baseDocument: {
-                    fileName: "importantFile.docx",
-                    fileId: 3231141
-                }
-            },
-            {
-                ticketId: 13749221,
-                title: "Just document",
-                date: "19.10.2020",
-                description: "Lorem ipsum dolor sit amet.",
-                comment: "Something is wrong with document ... ",
-                status: "Rejected",
-                flow: [
-                    {
-                        name: "You",
-                        current: true
-                    },
-                    {
-                        name: "Dean's office",
-                        current: false
-                    }
-                ],
-                baseDocument: {
-                    fileName: "justFile.docx",
-                    fileId: 3213119
-                }
-            }
-        ]
-    );
+    let [documents, setDocuments] = useState({
+        loading: true,
+        data: null,
+        error: false
+    });
 
     const { getSession } = useContext(AccountContext);
+    const { getTickets, getTemplates } = useContext(APIContext);
+
+    let requestTickets = (token) => {
+        // if you need to read this, I'm sorry
+        getTickets(token)
+            .then(tickets => {
+                console.log(tickets);
+                getTemplates(token)
+                    .then(templates => {
+                        console.log(templates);
+                        var resultDocuments = [];
+                        tickets.map((ticket) => {
+                            let template = templates.filter(template => template.id === ticket.ticketTemplateId)[0];
+                            let doc = {
+                                ticketId: ticket.ticketId,
+                                date: ticket.dateIssued,
+                                comment: ticket.comment,
+                                title: template.title,
+                                description: template.description,
+                                flow: template.users,
+                                status: ticket.status,
+                                currentUser: ticket.CurrentUserEmail? ticket.CurrentUserEmail[0] : "",
+                                files: []
+                            }
+                            doc.files.push(
+                                {
+                                    fileLink: template.fileLink,
+                                    filename: template.filename
+                                }
+                            );
+                            doc.files.push(
+                                {
+                                    fileLink: ticket.fileLink,
+                                    filename: ticket.filename
+                                }
+                            );
+                            resultDocuments.push(doc);
+                        });
+                        console.log(resultDocuments);
+                        setDocuments({
+                            loading: false,
+                            data: resultDocuments,
+                            error: false
+                        });
+                    })
+                    .catch(err => { 
+                        console.log(err); 
+                        setDocuments({
+                            loading: false,
+                            data: null,
+                            error: true
+                        });
+                    });
+            })
+            .catch(err => {
+                console.log(err);
+                setDocuments({
+                    loading: false,
+                    data: null,
+                    error: true
+                })
+            });
+    }
+
     useEffect(() => {
         getSession()
         .then(token => {
-            console.log(token);
+            requestTickets(token);
         })
         .catch(() => {
             window.location = "/login";
         });
     }, []);
 
+    let content = null;
+
+    if (documents.loading) {
+        content = <Spinner/>
+    }
+
+    if (documents.error) {
+        content =
+            <Alert variant="danger">
+                <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+                <p>
+                    There was an error please refresh or try again later.
+                </p>
+            </Alert>
+    }
+
+    if (documents.data) {
+        content =
+            <div className="container mt-5">
+                {documents.data.map((document, index) => (
+                    <Ticket document={document} key={index} id={index} />
+                ))};
+            </div>
+    }
+
     return (
-        <div className="container mt-5">
-            {documents.map((document, index) => (
-                <Ticket document={document} key={index} id={index} />
-            ))};
+        <div>
+            {content}
         </div>
     );
 }

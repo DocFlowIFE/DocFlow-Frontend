@@ -1,0 +1,6 @@
+AdminAPIEndpoint		https://cxu9hjp5p9.execute-api.us-east-1.amazonaws.com/prod/
+AdminClientId	33nv5uu5m33eothmbpqrtnbknp
+AdminPoolId	us-east-1_ckTe96QJo
+PublicAPIEndpoint		https://a5fnoisn7g.execute-api.us-east-1.amazonaws.com/prod/
+UserClientId		482avgqgv59o0ms0011clackrs
+UserPoolId		us-east-1_o9wxSVAVP
